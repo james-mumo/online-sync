@@ -17,21 +17,22 @@ const LoggedInHeader = () => {
         localStorage.removeItem('userType');
 
         // Redirect to home page
-        window.location.href = '/';
-        window.location.reload();
+        // window.location.href = '/';
+        // window.location.reload();
+        history.push("/")
     };
 
     return (
         <div className="bg-teal-800 text-white py-4 flex justify-between items-center px-2">
             <div className='w-fit px-2'>
-                <Link to="/dashboard" className="hover:text-white font-semibold text-3xl sm:hover:text-[#1eb2a6]">Easy Class</Link>
+                <Link to="/dashboard" className="hover:text-white font-semibold text-3xl sm:hover:text-[#1eb2a6]">Online Sync</Link>
             </div>
             <nav className='flex-1 flex items-end flex-row justify-end'>
                 <ul className="flex space-x-4">
 
                     <div className='flex justify-center gap-2 items-center'>
                         <li>
-                            <a href="#" className="hover:text-teal-300 cursor-pointer bg-teal-950 hover:bg-teal-900 transition duration-300 p-3 rounded-md flex items-center">
+                            <a href="/dashboard" className="hover:text-teal-300 cursor-pointer bg-teal-950 hover:bg-teal-900 transition duration-300 p-3 rounded-md flex items-center">
                                 <SchoolIcon className="mr-2" />
                                 Dashboard
                             </a>

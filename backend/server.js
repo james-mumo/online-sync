@@ -8,7 +8,7 @@ import studentRoutes from "./routes/studentRoutes.js"
 const app = express();
 const port = 4000;
 
-const uri = `mongodb+srv://98kithome:98kithome@cluster0.ijx96ju.mongodb.net/easy-class`
+const uri = `mongodb+srv://98kithome:98kithome@cluster0.ijx96ju.mongodb.net/online-sync`
 
 mongoose.connect(uri)
     .then(() => {

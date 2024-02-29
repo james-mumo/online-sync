@@ -3,12 +3,12 @@ import Student from '../models/Student.js';
 // Signup controller
 export const signup = async (req, res) => {
     try {
-        const { firstName, lastName, username, email, password } = req.body;
-        const existingUser = await Student.findOne({ email });
+        const { firstName, lastName, username, password } = req.body;
+        const existingUser = await Student.findOne({ username });
         if (existingUser) {
-            return res.status(400).json({ message: "User with this email already exists" });
+            return res.status(400).json({ message: "User with this username already exists" });
         }
-        const newUser = new Student({ firstName, lastName, username, email, password });
+        const newUser = new Student({ firstName, lastName, username, password });
         await newUser.save();
         // Return the newly created user object in response
         res.status(201).json({ message: "User registered successfully", user: newUser });
@@ -20,10 +20,10 @@ export const signup = async (req, res) => {
 // Login controller
 export const login = async (req, res) => {
     try {
-        const { email, password } = req.body;
-        const user = await Student.findOne({ email });
+        const { username, password } = req.body;
+        const user = await Student.findOne({ username });
         if (!user || user.password !== password) {
-            return res.status(401).json({ message: "Invalid email or password" });
+            return res.status(401).json({ message: "Invalid username or password" });
         }
         // Return the logged-in user object in response
         res.status(200).json({ message: "Login successful", user });

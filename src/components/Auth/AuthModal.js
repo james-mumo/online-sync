@@ -8,7 +8,6 @@ const AuthModal = ({ isOpen, onClose }) => {
         firstName: "",
         lastName: "",
         username: "",
-        email: "",
         password: "",
         coursesEnrolled: []
     });

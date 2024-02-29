@@ -25,43 +25,34 @@ const randomRole = () => {
     return randomArrayItem(roles);
 };
 
+
 const initialRows = [
     {
         id: randomId(),
         name: randomTraderName(),
-        age: 25,
-        joinDate: randomCreatedDate(),
-        role: randomRole(),
+        studentEmail: randomTraderName(),
+        assignmentType: 'Lab',
+        dateTimeDue: randomCreatedDate(),
+        status: 'Pending',
     },
     {
         id: randomId(),
         name: randomTraderName(),
-        age: 36,
-        joinDate: randomCreatedDate(),
-        role: randomRole(),
+        studentEmail: randomTraderName(),
+        assignmentType: 'Normal',
+        dateTimeDue: randomCreatedDate(),
+        status: 'Completed',
     },
     {
         id: randomId(),
         name: randomTraderName(),
-        age: 19,
-        joinDate: randomCreatedDate(),
-        role: randomRole(),
-    },
-    {
-        id: randomId(),
-        name: randomTraderName(),
-        age: 28,
-        joinDate: randomCreatedDate(),
-        role: randomRole(),
-    },
-    {
-        id: randomId(),
-        name: randomTraderName(),
-        age: 23,
-        joinDate: randomCreatedDate(),
-        role: randomRole(),
+        studentEmail: randomTraderName(),
+        assignmentType: 'Lab',
+        dateTimeDue: randomCreatedDate(),
+        status: 'Pending',
     },
 ];
+
 
 function EditToolbar(props) {
     const { setRows, setRowModesModel } = props;
@@ -128,31 +119,25 @@ export default function FullFeaturedCrudGrid() {
         setRowModesModel(newRowModesModel);
     };
 
+
+
     const columns = [
         { field: 'name', headerName: 'Name', width: 180, editable: true },
+        { field: 'studentEmail', headerName: 'Student Email', width: 220, editable: true },
         {
-            field: 'age',
-            headerName: 'Age',
-            type: 'number',
-            width: 80,
-            align: 'left',
-            headerAlign: 'left',
-            editable: true,
+            field: 'assignmentType', headerName: 'Assignment Type', width: 180, editable: true,
+            type: 'singleSelect',
+            valueOptions: ['Lab', 'Assignment'],
         },
+        { field: 'dateTimeDue', headerName: 'Date/Time Due', type: 'dateTime', width: 220, editable: true },
         {
-            field: 'joinDate',
-            headerName: 'Join date',
-            type: 'date',
-            width: 180,
-            editable: true,
-        },
-        {
-            field: 'role',
-            headerName: 'Department',
-            width: 220,
+            field: 'status',
+            headerName: 'Status',
+            width: 120,
             editable: true,
             type: 'singleSelect',
-            valueOptions: ['Market', 'Finance', 'Development'],
+            valueOptions: ['Pending', 'Completed'],
+
         },
         {
             field: 'actions',
@@ -201,6 +186,7 @@ export default function FullFeaturedCrudGrid() {
             },
         },
     ];
+
 
     return (
         <Box
