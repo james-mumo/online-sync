@@ -24,7 +24,6 @@ const SignupForm = ({ formData, handleInputChange, handleSubmit, handleCourseSel
 
             // Set loggedIn variable in localStorage
             localStorage.setItem('loggedIn', true);
-            localStorage.setItem('userType', response.data.user.userType);
 
             // Redirect to dashboard
             history.push('/dashboard');

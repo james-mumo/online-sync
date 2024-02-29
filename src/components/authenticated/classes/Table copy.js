@@ -6,7 +6,6 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/DeleteOutlined';
 import SaveIcon from '@mui/icons-material/Save';
 import CancelIcon from '@mui/icons-material/Close';
-import { newRecord } from '../../../logic/api';
 import {
     GridRowModes,
     DataGrid,
@@ -20,7 +19,6 @@ import {
     randomId,
     randomArrayItem,
 } from '@mui/x-data-grid-generator';
-import axios from 'axios';
 
 const roles = ['Market', 'Finance', 'Development'];
 const randomRole = () => {
@@ -59,31 +57,13 @@ const initialRows = [
 function EditToolbar(props) {
     const { setRows, setRowModesModel } = props;
 
-    // const handleClick = () => {
-    //     const id = randomId();
-    //     setRows((oldRows) => [...oldRows, { id, name: '', age: '', isNew: true }]);
-    //     setRowModesModel((oldModel) => ({
-    //         ...oldModel,
-    //         [id]: { mode: GridRowModes.Edit, fieldToFocus: 'name' },
-    //     }));
-    // };
-
-    const handleClick = async () => {
-        try {
-            const newData = { name: '', studentEmail: '', assignmentType: '', dateTimeDue: '', status: '' };
-            const response = await newRecord(newData)
-            console.log(newData)
-            // Assuming your backend returns the newly created record
-            const newRecord = response.data;
-
-            setRows((oldRows) => [...oldRows, newRecord]);
-            setRowModesModel((oldModel) => ({
-                ...oldModel,
-                [newRecord.id]: { mode: GridRowModes.Edit, fieldToFocus: 'name' },
-            }));
-        } catch (error) {
-            console.error('Error adding record:', error);
-        }
+    const handleClick = () => {
+        const id = randomId();
+        setRows((oldRows) => [...oldRows, { id, name: '', age: '', isNew: true }]);
+        setRowModesModel((oldModel) => ({
+            ...oldModel,
+            [id]: { mode: GridRowModes.Edit, fieldToFocus: 'name' },
+        }));
     };
 
     return (

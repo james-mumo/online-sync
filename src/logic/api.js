@@ -11,5 +11,7 @@ const signup = (formData) => api.post('/student/register', formData);
 // Define login function
 const login = (formData) => api.post('/student/login', formData);
 
+const newRecord = (itemData) => api.post("/records", itemData);
+
 // Export the functions
-export { signup, login };
+export { signup, login, newRecord };

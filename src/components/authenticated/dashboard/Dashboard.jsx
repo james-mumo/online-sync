@@ -15,22 +15,17 @@ function Dashboard() {
     }, []);
     return (
         <div className="container mx-auto px-4 py-4 ">
-            <h1 className="text-3xl font-bold text-teal-800 mb-4">Dashboard</h1>
             <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
                 {/* Grid cell 1 */}
                 <div className="bg-teal-200 p-4 rounded-lg shadow-lg col-span-2">
-                    <h2 className="text-lg font-semibold mb-2">Item 1</h2>
+                    <span className="text-lg font-semibold mb-1">User Information</span>
                     {userData && (
-                        <div className="bg-teal-200 p-4 rounded-lg shadow-lg col-span-2">
-                            <h2 className="text-lg font-semibold mb-2">User Information</h2>
+                        <div className="bg-teal-500 p-4 rounded-lg shadow-lg col-span-2">
                             <p className="text-gray-800">
-                                <span className="font-bold">createdAt:</span> <span className="text-blue-600">{userData.createdAt}</span> <br />
-                                <span className="font-bold">firstName:</span> <span className="text-green-600">{userData.firstName}</span> <br />
-                                <span className="font-bold">lastName:</span> <span className="text-red-600">{userData.lastName}</span> <br />
-                                <span className="font-bold">password:</span> <span className="text-yellow-600">{userData.password}</span> <br />
-                                <span className="font-bold">username:</span> <span className="text-purple-600">{userData.username}</span> <br />
-                                <span className="font-bold">__v:</span> <span className="text-indigo-600">{userData.__v}</span> <br />
-                                <span className="font-bold">_id:</span> <span className="text-pink-600">{userData._id}</span> <br />
+                                <span className="font-bold">Username:</span> <span className="text-gray-200 font-semibold text-xl">{userData.username}</span> <br />
+                                <span className="font-bold">First Name:</span> <span className="text-gray-200 font-semibold text-xl">{userData.firstName}</span> <br />
+                                <span className="font-bold">Last Name:</span> <span className="text-gray-200 font-semibold text-xl">{userData.lastName}</span> <br />
+                                <span className="font-bold">Password:</span> <span className="text-gray-200 font-semibold text-xl">{userData.password}</span> <br />
                             </p>
                         </div>
                     )}
@@ -79,7 +74,7 @@ function Dashboard() {
                     <p className="text-gray-200">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
                 </div>
             </div>
-        </div>
+        </div >
     );
 }
 

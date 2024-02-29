@@ -4,6 +4,8 @@ import cors from 'cors';
 import userRoutes from './routes/userRoutes.js';
 import tutorRoutes from './routes/tutorRoutes.js';
 import studentRoutes from "./routes/studentRoutes.js"
+import recordRouter from './routes/recordRoutes.js';
+
 
 const app = express();
 const port = 4000;
@@ -28,6 +30,7 @@ app.use(express.json());
 
 // Import and use the router
 app.use('/api/student', studentRoutes);
+app.use('/api/records', recordRouter);
 
 // Defining additional routes
 app.get("/", (req, res) => {
