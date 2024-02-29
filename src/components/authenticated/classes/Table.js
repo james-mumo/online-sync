@@ -68,24 +68,25 @@ function EditToolbar(props) {
     //     }));
     // };
 
+
     const handleClick = async () => {
         try {
             const newData = { name: '', studentEmail: '', assignmentType: '', dateTimeDue: '', status: '' };
-            const response = await addRecord(newData)
-            console.log(newData)
-            // Assuming your backend returns the newly created record
-            const newRecord = response.data;
+            const newRecord = await addRecord(newData); // Call addRecord function to add a new record
+            console.log(newRecord);
 
-            setRows((oldRows) => [...oldRows, newRecord]);
+            // Ensure the new record has an 'id' property and assign it to the 'id' field of the record object
+            const recordWithId = { ...newRecord, id: newRecord._id }; // Assuming the backend returns '_id' as the unique identifier
+
+            setRows((oldRows) => [...oldRows, recordWithId]);
             setRowModesModel((oldModel) => ({
                 ...oldModel,
-                [newRecord.id]: { mode: GridRowModes.Edit, fieldToFocus: 'name' },
+                [recordWithId.id]: { mode: GridRowModes.Edit, fieldToFocus: 'name' },
             }));
         } catch (error) {
             console.error('Error adding record:', error);
         }
     };
-
     return (
         <GridToolbarContainer>
             <Button color="primary" startIcon={<AddIcon />} onClick={handleClick}>
