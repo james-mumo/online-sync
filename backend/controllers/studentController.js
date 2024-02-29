@@ -11,7 +11,7 @@ export const signup = async (req, res) => {
         const newUser = new Student({ firstName, lastName, username, password });
         await newUser.save();
         // Return the newly created user object in response
-        res.status(201).json(newUser);
+        res.status(201).send(newUser);
     } catch (error) {
         res.status(500).json({ message: "Failed to register user", error: error.message });
     }
@@ -26,7 +26,7 @@ export const login = async (req, res) => {
             return res.status(401).json({ message: "Invalid username or password" });
         }
         // Return the logged-in user object in response
-        res.status(200).json(user);
+        res.status(200).send(user);
     } catch (error) {
         res.status(500).json({ message: "Failed to login", error: error.message });
     }

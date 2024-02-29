@@ -10,6 +10,7 @@ function Dashboard() {
         // Parse the user data if it exists
         if (userDataFromLocalStorage) {
             setUserData(JSON.parse(userDataFromLocalStorage));
+            console.log(userData)
         }
     }, []);
     return (
