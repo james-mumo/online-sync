@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-    baseURL: 'https://easy-class.onrender.com/api',
+    baseURL: 'https://online-sync.onrender.com/api',
     // baseURL: 'http://localhost:4000/api', 
 });
 
