@@ -1,5 +1,5 @@
 {
-  "name": "easy-class",
+  "name": "online-sync",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -8,6 +8,8 @@
     "@mui/icons-material": "^5.6.2",
     "@mui/material": "^5.7.0",
     "@mui/styled-engine-sc": "^5.7.0",
+    "@mui/x-data-grid": "^6.19.5",
+    "@mui/x-data-grid-generator": "^6.19.5",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.2.0",
     "@testing-library/user-event": "^13.5.0",

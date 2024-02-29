@@ -3,6 +3,7 @@ import SchoolIcon from '@mui/icons-material/School';
 import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 import PaymentsIcon from '@mui/icons-material/Payments';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import GroupAddIcon from '@mui/icons-material/GroupAdd';
 import CollectionsBookmarkIcon from '@mui/icons-material/CollectionsBookmark';
 import { useHistory, Link } from "react-router-dom";
 
@@ -36,7 +37,7 @@ const LoggedInHeader = () => {
                             </a>
                         </li>
                         <li>
-                            <Link to="/sessions" className="hover:text-teal-300 cursor-pointer bg-teal-950 hover:bg-teal-900 transition duration-300 p-3 rounded-md flex items-center">
+                            <Link to="/classes" className="hover:text-teal-300 cursor-pointer bg-teal-950 hover:bg-teal-900 transition duration-300 p-3 rounded-md flex items-center">
                                 <CollectionsBookmarkIcon className="mr-2" />
                                 Classes
                             </Link>
@@ -50,7 +51,13 @@ const LoggedInHeader = () => {
                         <li>
                             <a href="#" className="hover:text-teal-300 cursor-pointer bg-teal-950 hover:bg-teal-900 transition duration-300 p-3 rounded-md flex items-center">
                                 <PaymentsIcon className="mr-2" />
-                                Payments
+                                Add Classes
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" className="hover:text-teal-300 cursor-pointer bg-teal-950 hover:bg-teal-900 transition duration-300 p-3 rounded-md flex items-center">
+                                <GroupAddIcon className="mr-2" />
+                                Add Classes
                             </a>
                         </li>
                         <li>

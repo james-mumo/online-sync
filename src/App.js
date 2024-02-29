@@ -6,6 +6,7 @@ import NormalLayout from "./NormalLayout";
 import LoggedInLayout from "./LoggedInLayout";
 import Dashboard from "./components/authenticated/dashboard/Dashboard";
 import Courses from "./components/authenticated/courses/Courses";
+import Classes from "./components/authenticated/classes/Classes";
 import Sessions from "./components/authenticated/sessions/Sessions";
 import AuthModal from "./components/Auth/AuthModal";
 
@@ -16,20 +17,20 @@ function App() {
   return (
     <Router>
       <Switch>
-        <Route exact path={["/", "/about", "/team", "/pricing", "/contact", "/payment", "/courses"]}>
+        <Route exact path={["/"]}>
           <NormalLayout >
             <Switch>
               <Route exact path="/" component={AuthModal} />
-              <Route exact path="/courses" component={Courses} />
             </Switch>
           </NormalLayout>
         </Route>
-        <Route path="/auth">
+        <Route path="/">
           <LoggedInLayout>
             <Switch>
-              <Route exact path="/auth/dashboard" component={Dashboard} />
-              <Route exact path="/auth/courses" component={Courses} />
-              <Route exact path="/auth/sessions" component={Sessions} />
+              <Route exact path="/dashboard" component={Dashboard} />
+              <Route exact path="/classes" component={Classes} />
+              <Route exact path="/courses" component={Courses} />
+              <Route exact path="/sessions" component={Sessions} />
             </Switch>
           </LoggedInLayout>
         </Route>
