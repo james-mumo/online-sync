@@ -4,7 +4,7 @@ import Record from '../models/Record.js';
 export const getAllRecords = async (req, res) => {
     try {
         const records = await Record.find();
-        res.json(records);
+        res.json({ records: records, new: "james" });
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
