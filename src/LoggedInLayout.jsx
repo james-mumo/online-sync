@@ -1,14 +1,14 @@
 // LoggedInLayout.js
 import React from "react";
 import LoggedInHeader from "./components/authenticated/common/LoggedInHeader";
-import LoggedInFooter from "./components/authenticated/common/LoggedInFooter";
+
 
 const LoggedInLayout = ({ children }) => {
     return (
-        <div>
+        <div className="h-screen">
             <LoggedInHeader />
             {children}
-            <LoggedInFooter />
+
         </div>
     );
 };
