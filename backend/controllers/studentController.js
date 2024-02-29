@@ -11,7 +11,7 @@ export const signup = async (req, res) => {
         const newUser = new Student({ firstName, lastName, username, password });
         await newUser.save();
         // Return the newly created user object in response
-        res.status(201).json({ user: newUser });
+        res.status(201).json(newUser);
     } catch (error) {
         res.status(500).json({ message: "Failed to register user", error: error.message });
     }
