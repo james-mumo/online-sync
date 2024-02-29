@@ -1,5 +1,6 @@
 import "./App.css";
 import 'react-notifications/lib/notifications.css';
+import { NotificationContainer, NotificationManager } from 'react-notifications';
 import React, { useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import NormalLayout from "./NormalLayout";
@@ -15,27 +16,32 @@ function App() {
 
 
   return (
-    <Router>
-      <Switch>
-        <Route exact path={["/"]}>
-          <NormalLayout >
-            <Switch>
-              <Route exact path="/" component={AuthModal} />
-            </Switch>
-          </NormalLayout>
-        </Route>
-        <Route path="/">
-          <LoggedInLayout>
-            <Switch>
-              <Route exact path="/dashboard" component={Dashboard} />
-              <Route exact path="/classes" component={Classes} />
-              <Route exact path="/courses" component={Courses} />
-              <Route exact path="/sessions" component={Sessions} />
-            </Switch>
-          </LoggedInLayout>
-        </Route>
-      </Switch>
-    </Router >
+    <>
+      <Router>
+        <Switch>
+          <Route exact path={["/"]}>
+            <NormalLayout >
+              <Switch>
+                <Route exact path="/" component={AuthModal} />
+              </Switch>
+            </NormalLayout>
+          </Route>
+          <Route path="/">
+            <LoggedInLayout>
+              <Switch>
+                <Route exact path="/dashboard" component={Dashboard} />
+                <Route exact path="/classes" component={Classes} />
+                <Route exact path="/courses" component={Courses} />
+                <Route exact path="/sessions" component={Sessions} />
+              </Switch>
+            </LoggedInLayout>
+          </Route>
+
+        </Switch>
+      </Router >
+
+      <NotificationContainer />
+    </>
   );
 }
 

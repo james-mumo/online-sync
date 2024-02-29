@@ -5,13 +5,11 @@ import { useHistory } from 'react-router-dom';
 import { Puff } from 'react-loader-spinner';
 import { login } from "../../logic/api";
 
-const SignupForm = ({ formData, handleInputChange, handleSubmit, handleCourseSelect, switchForm, onClose }) => {
+const SignupForm = ({ formData, handleInputChange, handleSubmit, handleCourseSelect, switchForm }) => {
     const [loading, setLoading] = useState(false);
     const history = useHistory();
 
-    const formatSelectedCourses = () => {
-        return formData.coursesEnrolled.join(", ");
-    };
+
 
     const submitForm = async () => {
         setLoading(true); // Set loading state to true when form is submitted
@@ -20,7 +18,7 @@ const SignupForm = ({ formData, handleInputChange, handleSubmit, handleCourseSel
             const response = await signup(formData);
 
             NotificationManager.success('Signup Successful', 'Success');
-
+            console.log(response)
             // Store user data in localStorage
             localStorage.setItem('user', JSON.stringify(response.data));
 
@@ -31,7 +29,6 @@ const SignupForm = ({ formData, handleInputChange, handleSubmit, handleCourseSel
             // Redirect to dashboard
             history.push('/dashboard');
 
-            onClose();
         } catch (error) {
             console.error("Error signing up:", error);
 

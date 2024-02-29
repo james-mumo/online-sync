@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import { login } from "../../logic/api";
 import { Puff } from 'react-loader-spinner';
 
-const LoginForm = ({ formData, handleInputChange, handleSubmit, switchForm, onClose }) => {
+const LoginForm = ({ formData, handleInputChange, handleSubmit, switchForm }) => {
     const [loading, setLoading] = useState(false); // State to manage loading spinner
     const history = useHistory();
 
@@ -17,7 +17,7 @@ const LoginForm = ({ formData, handleInputChange, handleSubmit, switchForm, onCl
 
             // Show success notification
             NotificationManager.success('Login Successful', 'Success');
-
+            console.log(response)
             // Store user data in localStorage
             localStorage.setItem('user', JSON.stringify(response.data));
 
@@ -28,8 +28,7 @@ const LoginForm = ({ formData, handleInputChange, handleSubmit, switchForm, onCl
             // Redirect to dashboard         
             history.push('/dashboard');
 
-            onClose();
-
+            
         } catch (error) {
             console.error("Error logging in:", error);
             // Show error notification
@@ -56,11 +55,11 @@ const LoginForm = ({ formData, handleInputChange, handleSubmit, switchForm, onCl
             )}
 
             <div className={`mt-4 ${loading ? 'hidden' : 'block'}`}> {/* Hide form inputs when loading */}
-                <label htmlFor="name" className="block text-sm font-medium text-gray-700">Username:</label>
+                <label htmlFor="username" className="block text-sm font-medium text-gray-700">Username:</label>
                 <div className="mt-1">
                     <input
                         type="name"
-                        name="name"
+                        name="username"
                         id="name"
                         value={formData.username}
                         onChange={handleInputChange}

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import LoginForm from "./LoginForm";
 import SignupForm from "./SignupForm";
 
-const AuthModal = ({ isOpen, onClose }) => {
+const AuthModal = () => {
     const [isLoginForm, setIsLoginForm] = useState(true);
     const [formData, setFormData] = useState({
         firstName: "",
@@ -17,17 +17,6 @@ const AuthModal = ({ isOpen, onClose }) => {
         setFormData({ ...formData, [name]: value });
     };
 
-    const handleCourseSelect = (e) => {
-        const selectedOptions = Array.from(e.target.selectedOptions, option => option.value);
-
-        // Check if the selected course is already enrolled
-        const newCourses = selectedOptions.filter(course => !formData.coursesEnrolled.includes(course));
-
-        setFormData(prevState => ({
-            ...formData,
-            coursesEnrolled: [...prevState.coursesEnrolled, ...newCourses]
-        }));
-    };
 
     const switchForm = () => {
         setIsLoginForm(!isLoginForm);
@@ -66,7 +55,6 @@ const AuthModal = ({ isOpen, onClose }) => {
                                         formData={formData}
                                         handleInputChange={handleInputChange}
                                         handleSubmit={handleSubmit}
-                                        handleCourseSelect={handleCourseSelect}
                                         switchForm={switchForm}
 
                                     />
