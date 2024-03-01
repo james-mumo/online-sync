@@ -1,19 +1,89 @@
-import React from 'react';
-import {
-    DataGrid,
-    GridRowModes,
-    GridActionsCellItem,
-    GridRowEditStopReasons,
-} from '@mui/x-data-grid';
-
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/DeleteOutlined';
 import SaveIcon from '@mui/icons-material/Save';
 import CancelIcon from '@mui/icons-material/Close';
+import { addRecord } from '../../../logic/api';
+import {
+    GridRowModes,
+    DataGrid,
+    GridToolbarContainer,
+    GridActionsCellItem,
+    GridRowEditStopReasons,
+} from '@mui/x-data-grid';
+import {
+    randomCreatedDate,
+    randomTraderName,
+    randomId,
+    randomArrayItem,
+} from '@mui/x-data-grid-generator';
 
-export default function FullFeaturedCrudGrid({ records }) {
-    const [rows, setRows] = React.useState(records);
+const roles = ['Market', 'Finance', 'Development'];
+const randomRole = () => {
+    return randomArrayItem(roles);
+};
+
+const initialRows = [
+    {
+        id: randomId(),
+        name: randomTraderName(),
+        studentEmail: randomTraderName(),
+        assignmentType: 'Lab',
+        dateTimeDue: randomCreatedDate(),
+        status: 'Pending',
+    },
+    {
+        id: randomId(),
+        name: randomTraderName(),
+        studentEmail: randomTraderName(),
+        assignmentType: 'Normal',
+        dateTimeDue: randomCreatedDate(),
+        status: 'Completed',
+    },
+    {
+        id: randomId(),
+        name: randomTraderName(),
+        studentEmail: randomTraderName(),
+        assignmentType: 'Lab',
+        dateTimeDue: randomCreatedDate(),
+        status: 'Pending',
+    },
+];
+
+// function EditToolbar(props) {
+//     const { setRows, setRowModesModel } = props;
+
+//     const handleClick = async () => {
+//         try {
+//             const newData = { name: '', studentEmail: '', assignmentType: '', dateTimeDue: '', status: '' };
+//             const newRecord = await addRecord(newData);
+//             console.log(newRecord);
+
+//             const recordWithId = { ...newRecord, id: newRecord._id };
+
+//             setRows((oldRows) => [...oldRows, recordWithId]);
+//             setRowModesModel((oldModel) => ({
+//                 ...oldModel,
+//                 [recordWithId.id]: { mode: GridRowModes.Edit, fieldToFocus: 'name' },
+//             }));
+//         } catch (error) {
+//             console.error('Error adding record:', error);
+//         }
+//     };
+//     return (
+//         <GridToolbarContainer>
+//             <Button color="primary" startIcon={<AddIcon />} onClick={handleClick}>
+//                 Add record
+//             </Button>
+//         </GridToolbarContainer>
+//     );
+// }
+
+export default function FullFeaturedCrudGrid() {
+    const [rows, setRows] = React.useState(initialRows);
     const [rowModesModel, setRowModesModel] = React.useState({});
 
     const handleRowEditStop = (params, event) => {
@@ -64,7 +134,7 @@ export default function FullFeaturedCrudGrid({ records }) {
             type: 'singleSelect',
             valueOptions: ['Lab', 'Assignment'],
         },
-        { field: 'dateTimeDue', headerName: 'Date/Time Due', width: 220, editable: true },
+        { field: 'dateTimeDue', headerName: 'Date/Time Due', type: 'dateTime', width: 220, editable: true },
         {
             field: 'status',
             headerName: 'Status',
@@ -125,6 +195,12 @@ export default function FullFeaturedCrudGrid({ records }) {
                 onRowEditStop={handleRowEditStop}
                 processRowUpdate={processRowUpdate}
                 className="border border-red-800"
+                // slots={{
+                //     toolbar: EditToolbar,
+                // }}
+                slotProps={{
+                    toolbar: { setRows, setRowModesModel },
+                }}
             />
         </div>
 

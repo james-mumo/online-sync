@@ -6,7 +6,7 @@ const recordSchema = new mongoose.Schema({
     studentEmail: String,
     courseName: String,
     assignmentType: String,
-    dateTimeDue: Number, // Change the type to Number
+    dateTimeDue: Date, // Change the type to Number
     status: String
 });
 

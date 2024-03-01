@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { getRecords } from '../../../logic/api';
-import TextField from '@mui/material/TextField';
-import MenuItem from '@mui/material/MenuItem';
 import FullFeaturedCrudGrid from './Table';
 
 function Classes() {
@@ -12,7 +10,12 @@ function Classes() {
         const fetchRecords = async () => {
             try {
                 const response = await getRecords();
-                setRecords(response.data);
+                // Add unique id to each record
+                const recordsWithId = response.data.map((record) => ({
+                    ...record,
+                    id: record._id, // Use MongoDB _id as id
+                }));
+                setRecords(recordsWithId);
                 setLoading(false);
             } catch (error) {
                 console.error('Error fetching records:', error.message);
@@ -35,74 +38,7 @@ function Classes() {
                 <p>No records found.</p>
             ) : (
                 <div>
-                    <FullFeaturedCrudGrid />
-                    {records.map((record, index) => (
-                        <div key={index} className="record-container">
-                            <TextField
-                                id={`name-${index}`}
-                                name={`name-${index}`}
-                                label="Name"
-                                variant="outlined"
-                                value={record.name || ''}
-                                disabled
-                            />
-                            <TextField
-                                id={`studentEmail-${index}`}
-                                name={`studentEmail-${index}`}
-                                label="Student Email"
-                                variant="outlined"
-                                value={record.studentEmail || ''}
-                                disabled
-                            />
-                            <TextField
-                                id={`courseName-${index}`}
-                                name={`courseName-${index}`}
-                                label="Course Name"
-                                variant="outlined"
-                                value={record.courseName || ''}
-                                disabled
-                            />
-                            <TextField
-                                id={`assignmentType-${index}`}
-                                name={`assignmentType-${index}`}
-                                select
-                                label="Assignment Type"
-                                variant="outlined"
-                                value={record.assignmentType || ''}
-                                disabled
-                            >
-                                {['Lab Assignment', 'Network Assignment', 'Quiz', 'Zoom Meeting'].map((option) => (
-                                    <MenuItem key={option} value={option}>
-                                        {option}
-                                    </MenuItem>
-                                ))}
-                            </TextField>
-                            <TextField
-                                id={`dateTimeDue-${index}`}
-                                name={`dateTimeDue-${index}`}
-                                label="Date Time Due"
-                                variant="outlined"
-                                type="datetime-local"
-                                value={record.dateTimeDue || ''}
-                                disabled
-                            />
-                            <TextField
-                                id={`status-${index}`}
-                                name={`status-${index}`}
-                                select
-                                label="Status"
-                                variant="outlined"
-                                value={record.status || ''}
-                                disabled
-                            >
-                                {['Pending', 'Completed'].map((option) => (
-                                    <MenuItem key={option} value={option}>
-                                        {option}
-                                    </MenuItem>
-                                ))}
-                            </TextField>
-                        </div>
-                    ))}
+                    <FullFeaturedCrudGrid records={records} />
                 </div>
             )}
         </div>

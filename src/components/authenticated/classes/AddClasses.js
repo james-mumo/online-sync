@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
 import { addRecord } from '../../../logic/api';
@@ -17,19 +17,25 @@ function AddClasses() {
         status: 'Pending'
     });
 
+    // Reference to the datetime-local input element
+    const dateTimeRef = useRef(null);
+
+    useEffect(() => {
+        // Set the minimum date to today whenever formData.dateTimeDue changes
+        if (dateTimeRef.current) {
+            const today = new Date().toISOString().split('T')[0];
+            dateTimeRef.current.min = today;
+        }
+    }, [formData.dateTimeDue]);
+
     const handleChange = (e) => {
         const { name, value } = e.target;
 
-        // Convert dateTimeDue to hours if it's being changed
+        // Convert dateTimeDue to ISO string format if it's being changed
         let newValue = value;
         if (name === 'dateTimeDue') {
-            const selectedDateTime = new Date(value);
-            const hours = selectedDateTime.getHours();
-            const minutes = selectedDateTime.getMinutes();
-            // Format hours and minutes to match 'yyyy-MM-ddThh:mm' format
-            const formattedHours = hours < 10 ? `0${hours}` : hours;
-            const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
-            newValue = `${selectedDateTime.toISOString().substring(0, 11)}${formattedHours}:${formattedMinutes}`;
+            // Add 'T00:00' to the value to convert it into ISO format
+            newValue = `${value}:00`;
         }
 
         setFormData(prevState => ({
@@ -39,13 +45,16 @@ function AddClasses() {
     };
 
 
+
+
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
             const response = await addRecord(formData);
             console.log('New record created:', response.data);
         } catch (error) {
-            console.error('Error creating record:', error.message);
+            console.error('Error creating record:', error);
         }
     };
 
@@ -98,9 +107,10 @@ function AddClasses() {
                     name="dateTimeDue"
                     label="Date Time Due"
                     variant="outlined"
-                    type="datetime-local" // Use type="datetime-local" for date-time picker
+                    type="datetime-local"
                     value={formData.dateTimeDue}
                     onChange={handleChange}
+                    inputRef={dateTimeRef}
                 />
                 <TextField
                     id="status"
