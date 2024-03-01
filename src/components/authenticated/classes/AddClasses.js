@@ -3,6 +3,8 @@ import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
 import { addRecord } from '../../../logic/api';
 import students from './studentsData'; // Import the students object
+import { NotificationManager } from 'react-notifications';
+import { Puff } from 'react-loader-spinner';
 
 function AddClasses() {
     const defaultDateTimeDue = new Date();
@@ -18,6 +20,8 @@ function AddClasses() {
         dateTimeDue: defaultDateTimeDue.toISOString().substring(0, 16),
         status: 'Pending'
     });
+
+    const [loading, setLoading] = useState(false); // Loading state
 
     // Reference to the datetime-local input element
     const dateTimeRef = useRef(null);
@@ -58,11 +62,17 @@ function AddClasses() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true); // Set loading state to true
+
         try {
             const response = await addRecord(formData);
             console.log('New record created:', response.data);
+            NotificationManager.success('Record Added Successfully', 'Success');
         } catch (error) {
             console.error('Error creating record:', error);
+            NotificationManager.error('Failed to Add Record', 'Error');
+        } finally {
+            setLoading(false); // Reset loading state
         }
     };
 
@@ -70,6 +80,18 @@ function AddClasses() {
         <div>
             <h2>Add Record</h2>
             <form onSubmit={handleSubmit} className='flex border-2 rounded-md flex-col gap-5 w-2/3 border-gray-400 p-3'>
+
+                {loading && (
+                    <div className="flex justify-center">
+                        <Puff
+                            visible={true}
+                            height={80}
+                            width={80}
+                            color="#4fa94d"
+                            ariaLabel="puff-loading"
+                        />
+                    </div>
+                )}
 
                 <div className="flex flex-1 justify-evenly gap-3">
                     <TextField
