@@ -95,7 +95,13 @@ export default function FullFeaturedCrudGrid({ records }) {
         },
         { field: 'assignmentName', headerName: 'Assignment Name', width: 220, editable: true },
         { field: 'dateTimeDue', headerName: 'Date/Time Due', width: 220, editable: true },
-        { field: 'hoursDue', headerName: 'Hours Remaining', width: 220, editable: true },
+        {
+            field: 'hoursDue', headerName: 'Hours Remaining', width: 220, editable: true,
+            renderCell: (params) => {
+                const value = params.value;
+                return value < 0 ? 'Overdue' : value;
+            }
+        },
         { field: 'score', headerName: 'Score', width: 120, editable: true },
         {
             field: 'status',

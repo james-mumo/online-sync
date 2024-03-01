@@ -9,11 +9,12 @@ function AddClasses() {
     defaultDateTimeDue.setDate(defaultDateTimeDue.getDate() + 1);
 
     const [formData, setFormData] = useState({
-        name: '',
-        studentEmail: '',
+        name: Object.keys(students)[0], // Set the default name to the first student name
+        studentEmail: students[Object.keys(students)[0]][0], // Set the default email to the first email of the first student
         courseName: '',
         assignmentType: 'Lab Assignment',
         assignmentName: '', // New field for Quiz Name
+        score: 0,
         dateTimeDue: defaultDateTimeDue.toISOString().substring(0, 16),
         status: 'Pending'
     });
@@ -68,95 +69,115 @@ function AddClasses() {
     return (
         <div>
             <h2>Add Record</h2>
-            <form onSubmit={handleSubmit}>
-                <TextField
-                    id="name"
-                    name="name"
-                    select // Change input to select
-                    label="Name"
-                    variant="outlined"
-                    value={formData.name}
-                    onChange={handleNameChange} // Handle change event for name dropdown
-                >
-                    {Object.keys(students).map((student) => (
-                        <MenuItem key={student} value={student}>
-                            {student}
-                        </MenuItem>
-                    ))}
-                </TextField>
-                <TextField
-                    id="studentEmail"
-                    name="studentEmail"
-                    select // Change input to select
-                    label="Student Email"
-                    variant="outlined"
-                    value={formData.studentEmail}
-                    onChange={handleChange}
-                >
-                    {students[formData.name] && students[formData.name].map((email) => (
-                        <MenuItem key={email} value={email}>
-                            {email}
-                        </MenuItem>
-                    ))}
-                </TextField>
-                <TextField
-                    id="courseName"
-                    name="courseName"
-                    label="Course Name"
-                    variant="outlined"
-                    value={formData.courseName}
-                    onChange={handleChange}
-                />
-                <TextField
-                    id="assignmentType"
-                    name="assignmentType"
-                    select
-                    label="Assignment Type"
-                    variant="outlined"
-                    defaultValue="Lab Assignment"
-                    value={formData.assignmentType}
-                    onChange={handleChange}
-                >
-                    {['Lab Assignment', 'General Assignment', 'Quiz', 'Zoom Meeting'].map((option) => (
-                        <MenuItem key={option} value={option}>
-                            {option}
-                        </MenuItem>
-                    ))}
-                </TextField>
-                <TextField
-                    id="assignmentName"
-                    name="assignmentName"
-                    label="Assignment Name"
-                    variant="outlined"
-                    value={formData.assignmentName}
-                    onChange={handleChange}
-                />
-                <TextField
-                    id="dateTimeDue"
-                    name="dateTimeDue"
-                    label="Date Time Due"
-                    variant="outlined"
-                    type="datetime-local"
-                    value={formData.dateTimeDue}
-                    onChange={handleChange}
-                    inputRef={dateTimeRef}
-                />
-                <TextField
-                    id="status"
-                    name="status"
-                    select
-                    label="Status"
-                    variant="outlined"
-                    defaultValue="Pending"
-                    value={formData.status}
-                    onChange={handleChange}
-                >
-                    {['Pending', 'Completed'].map((option) => (
-                        <MenuItem key={option} value={option}>
-                            {option}
-                        </MenuItem>
-                    ))}
-                </TextField>
+            <form onSubmit={handleSubmit} className='flex border-2 rounded-md flex-col gap-5 w-2/3 border-gray-400 p-3'>
+
+                <div className="flex flex-1 justify-evenly gap-3">
+                    <TextField
+                        id="name"
+                        name="name"
+                        select // Change input to select
+                        label="Name"
+                        variant="outlined"
+                        className='flex-1'
+                        value={formData.name}
+                        sx={{ width: 150 }} // Add width of 150px
+                        onChange={handleNameChange} // Handle change event for name dropdown
+                    >
+                        {Object.keys(students).map((student) => (
+                            <MenuItem key={student} value={student}>
+                                {student}
+                            </MenuItem>
+                        ))}
+                    </TextField>
+                    <TextField
+                        id="studentEmail"
+                        name="studentEmail"
+                        select // Change input to select
+                        label="Student Email"
+                        variant="outlined"
+                        className='flex-1'
+                        value={formData.studentEmail}
+                        onChange={handleChange}
+                        sx={{ width: 200 }} // Add width of 150px
+                    >
+                        {students[formData.name] && students[formData.name].map((email) => (
+                            <MenuItem key={email} value={email}>
+                                {email}
+                            </MenuItem>
+                        ))}
+                    </TextField>
+                    <TextField
+                        id="courseName"
+                        name="courseName"
+                        label="Course Name"
+                        variant="outlined"
+                        value={formData.courseName}
+                        className='flex-1'
+                        onChange={handleChange}
+                    />
+                </div>
+
+
+                <div className="flex gap-4">
+                    <TextField
+                        id="assignmentType"
+                        name="assignmentType"
+                        select
+                        className='flex-1'
+                        label="Assignment Type"
+                        variant="outlined"
+                        defaultValue="Lab Assignment"
+                        value={formData.assignmentType}
+                        onChange={handleChange}
+                    >
+                        {['Lab Assignment', 'General Assignment', 'Quiz', 'Zoom Meeting'].map((option) => (
+                            <MenuItem key={option} value={option}>
+                                {option}
+                            </MenuItem>
+                        ))}
+                    </TextField>
+                    <TextField
+                        id="assignmentName"
+                        name="assignmentName"
+                        className='flex-1'
+                        label="Assignment Name"
+                        variant="outlined"
+                        value={formData.assignmentName}
+                        onChange={handleChange}
+                    />
+                </div>
+
+                <div className="flex gap-4">
+
+                    <TextField
+                        id="dateTimeDue"
+                        name="dateTimeDue"
+                        label="Date Time Due"
+                        variant="outlined"
+                        type="datetime-local"
+                        className='flex-1'
+                        value={formData.dateTimeDue}
+                        onChange={handleChange}
+                        inputRef={dateTimeRef}
+                    />
+                    <TextField
+                        id="status"
+                        name="status"
+                        select
+                        label="Status"
+                        variant="outlined"
+                        defaultValue="Pending"
+                        className='flex-1'
+                        value={formData.status}
+                        onChange={handleChange}
+                    >
+                        {['Pending', 'Completed'].map((option) => (
+                            <MenuItem key={option} value={option}>
+                                {option}
+                            </MenuItem>
+                        ))}
+                    </TextField>
+                </div>
                 <button type="submit">Submit</button>
             </form>
         </div>

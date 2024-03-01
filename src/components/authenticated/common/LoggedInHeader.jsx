@@ -43,24 +43,24 @@ const LoggedInHeader = () => {
                                 Classes
                             </Link>
                         </li>
-                        <li>
+                        {/* <li>
                             <Link to="/courses" className="hover:text-teal-300 cursor-pointer bg-teal-950 hover:bg-teal-900 transition duration-300 p-3 rounded-md flex items-center">
                                 <LibraryBooksIcon className="mr-2" />
                                 Courses
                             </Link>
-                        </li>
+                        </li> */}
                         <li>
                             <a href="/addclasses" className="hover:text-teal-300 cursor-pointer bg-teal-950 hover:bg-teal-900 transition duration-300 p-3 rounded-md flex items-center">
                                 <PaymentsIcon className="mr-2" />
                                 Add Classes
                             </a>
                         </li>
-                        <li>
+                        {/* <li>
                             <a href="#" className="hover:text-teal-300 cursor-pointer bg-teal-950 hover:bg-teal-900 transition duration-300 p-3 rounded-md flex items-center">
                                 <GroupAddIcon className="mr-2" />
                                 Add Classes
                             </a>
-                        </li>
+                        </li> */}
                         <li>
                             <a onClick={handleLogout} className="hover:text-teal-300 cursor-point bg-teal-950 hover:bg-teal-900 transition duration-300 p-3 rounded-md flex items-center">
                                 <ExitToAppIcon className="mr-2" />

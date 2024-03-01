@@ -19,6 +19,7 @@ export const createRecord = async (req, res) => {
         assignmentType: req.body.assignmentType,
         assignmentName: req.body.assignmentName,
         dateTimeDue: req.body.dateTimeDue,
+        score: req.body.score,
         // dateTimeDue: dateTimeDueHours, // Set the dateTimeDue to hours
         status: req.body.status
     });
