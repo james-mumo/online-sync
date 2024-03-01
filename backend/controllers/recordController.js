@@ -28,5 +28,12 @@ export const createRecord = async (req, res) => {
         res.status(400).json({ message: err.message });
     }
 };
-
-// Other controller functions for updating and deleting records would be similar
+// Controller function to delete all records
+export const deleteAllRecords = async (req, res) => {
+    try {
+        await Record.deleteMany(); // This will delete all records
+        res.json({ message: "All records deleted successfully" });
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+};

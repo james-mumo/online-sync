@@ -19,11 +19,25 @@ function AddClasses() {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
+
+        // Convert dateTimeDue to hours if it's being changed
+        let newValue = value;
+        if (name === 'dateTimeDue') {
+            const selectedDateTime = new Date(value);
+            const hours = selectedDateTime.getHours();
+            const minutes = selectedDateTime.getMinutes();
+            // Format hours and minutes to match 'yyyy-MM-ddThh:mm' format
+            const formattedHours = hours < 10 ? `0${hours}` : hours;
+            const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
+            newValue = `${selectedDateTime.toISOString().substring(0, 11)}${formattedHours}:${formattedMinutes}`;
+        }
+
         setFormData(prevState => ({
             ...prevState,
-            [name]: value
+            [name]: newValue
         }));
     };
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();

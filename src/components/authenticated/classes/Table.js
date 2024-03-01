@@ -21,12 +21,10 @@ import {
     randomArrayItem,
 } from '@mui/x-data-grid-generator';
 
-
 const roles = ['Market', 'Finance', 'Development'];
 const randomRole = () => {
     return randomArrayItem(roles);
 };
-
 
 const initialRows = [
     {
@@ -55,46 +53,34 @@ const initialRows = [
     },
 ];
 
+// function EditToolbar(props) {
+//     const { setRows, setRowModesModel } = props;
 
-function EditToolbar(props) {
-    const { setRows, setRowModesModel } = props;
+//     const handleClick = async () => {
+//         try {
+//             const newData = { name: '', studentEmail: '', assignmentType: '', dateTimeDue: '', status: '' };
+//             const newRecord = await addRecord(newData);
+//             console.log(newRecord);
 
-    // const handleClick = () => {
-    //     const id = randomId();
-    //     setRows((oldRows) => [...oldRows, { id, name: '', age: '', isNew: true }]);
-    //     setRowModesModel((oldModel) => ({
-    //         ...oldModel,
-    //         [id]: { mode: GridRowModes.Edit, fieldToFocus: 'name' },
-    //     }));
-    // };
+//             const recordWithId = { ...newRecord, id: newRecord._id };
 
-
-    const handleClick = async () => {
-        try {
-            const newData = { name: '', studentEmail: '', assignmentType: '', dateTimeDue: '', status: '' };
-            const newRecord = await addRecord(newData); // Call addRecord function to add a new record
-            console.log(newRecord);
-
-            // Ensure the new record has an 'id' property and assign it to the 'id' field of the record object
-            const recordWithId = { ...newRecord, id: newRecord._id }; // Assuming the backend returns '_id' as the unique identifier
-
-            setRows((oldRows) => [...oldRows, recordWithId]);
-            setRowModesModel((oldModel) => ({
-                ...oldModel,
-                [recordWithId.id]: { mode: GridRowModes.Edit, fieldToFocus: 'name' },
-            }));
-        } catch (error) {
-            console.error('Error adding record:', error);
-        }
-    };
-    return (
-        <GridToolbarContainer>
-            <Button color="primary" startIcon={<AddIcon />} onClick={handleClick}>
-                Add record
-            </Button>
-        </GridToolbarContainer>
-    );
-}
+//             setRows((oldRows) => [...oldRows, recordWithId]);
+//             setRowModesModel((oldModel) => ({
+//                 ...oldModel,
+//                 [recordWithId.id]: { mode: GridRowModes.Edit, fieldToFocus: 'name' },
+//             }));
+//         } catch (error) {
+//             console.error('Error adding record:', error);
+//         }
+//     };
+//     return (
+//         <GridToolbarContainer>
+//             <Button color="primary" startIcon={<AddIcon />} onClick={handleClick}>
+//                 Add record
+//             </Button>
+//         </GridToolbarContainer>
+//     );
+// }
 
 export default function FullFeaturedCrudGrid() {
     const [rows, setRows] = React.useState(initialRows);
@@ -140,8 +126,6 @@ export default function FullFeaturedCrudGrid() {
         setRowModesModel(newRowModesModel);
     };
 
-
-
     const columns = [
         { field: 'name', headerName: 'Name', width: 180, editable: true },
         { field: 'studentEmail', headerName: 'Student Email', width: 220, editable: true },
@@ -174,17 +158,12 @@ export default function FullFeaturedCrudGrid() {
                         <GridActionsCellItem
                             icon={<SaveIcon />}
                             label="Save"
-                            sx={{
-                                color: 'primary.main',
-                            }}
                             onClick={handleSaveClick(id)}
                         />,
                         <GridActionsCellItem
                             icon={<CancelIcon />}
                             label="Cancel"
-                            className="textPrimary"
                             onClick={handleCancelClick(id)}
-                            color="inherit"
                         />,
                     ];
                 }
@@ -193,35 +172,20 @@ export default function FullFeaturedCrudGrid() {
                     <GridActionsCellItem
                         icon={<EditIcon />}
                         label="Edit"
-                        className="textPrimary"
                         onClick={handleEditClick(id)}
-                        color="inherit"
                     />,
                     <GridActionsCellItem
                         icon={<DeleteIcon />}
                         label="Delete"
                         onClick={handleDeleteClick(id)}
-                        color="inherit"
                     />,
                 ];
             },
         },
     ];
 
-
     return (
-        <Box
-            sx={{
-                height: 500,
-                width: '100%',
-                '& .actions': {
-                    color: 'text.secondary',
-                },
-                '& .textPrimary': {
-                    color: 'text.primary',
-                },
-            }}
-        >
+        <div className="bg-teal-100 p-4 rounded-lg w-fit">
             <DataGrid
                 rows={rows}
                 columns={columns}
@@ -230,13 +194,15 @@ export default function FullFeaturedCrudGrid() {
                 onRowModesModelChange={handleRowModesModelChange}
                 onRowEditStop={handleRowEditStop}
                 processRowUpdate={processRowUpdate}
-                slots={{
-                    toolbar: EditToolbar,
-                }}
+                className="border border-red-800"
+                // slots={{
+                //     toolbar: EditToolbar,
+                // }}
                 slotProps={{
                     toolbar: { setRows, setRowModesModel },
                 }}
             />
-        </Box>
+        </div>
+
     );
 }
