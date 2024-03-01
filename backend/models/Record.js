@@ -6,6 +6,8 @@ const recordSchema = new mongoose.Schema({
     studentEmail: String,
     courseName: String,
     assignmentType: String,
+    assignmentName: String,
+    score: Number,
     dateTimeDue: Date, // Change the type to Number
     status: String
 });

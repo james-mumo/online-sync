@@ -2,9 +2,9 @@ import React, { useState, useRef, useEffect } from 'react';
 import TextField from '@mui/material/TextField';
 import MenuItem from '@mui/material/MenuItem';
 import { addRecord } from '../../../logic/api';
+import students from './studentsData'; // Import the students object
 
 function AddClasses() {
-
     const defaultDateTimeDue = new Date();
     defaultDateTimeDue.setDate(defaultDateTimeDue.getDate() + 1);
 
@@ -13,6 +13,7 @@ function AddClasses() {
         studentEmail: '',
         courseName: '',
         assignmentType: 'Lab Assignment',
+        assignmentName: '', // New field for Quiz Name
         dateTimeDue: defaultDateTimeDue.toISOString().substring(0, 16),
         status: 'Pending'
     });
@@ -44,9 +45,15 @@ function AddClasses() {
         }));
     };
 
-
-
-
+    // Function to handle changes in the name dropdown
+    const handleNameChange = (e) => {
+        const { value } = e.target;
+        setFormData(prevState => ({
+            ...prevState,
+            name: value,
+            studentEmail: '' // Reset student email when name changes
+        }));
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -65,19 +72,33 @@ function AddClasses() {
                 <TextField
                     id="name"
                     name="name"
+                    select // Change input to select
                     label="Name"
                     variant="outlined"
                     value={formData.name}
-                    onChange={handleChange}
-                />
+                    onChange={handleNameChange} // Handle change event for name dropdown
+                >
+                    {Object.keys(students).map((student) => (
+                        <MenuItem key={student} value={student}>
+                            {student}
+                        </MenuItem>
+                    ))}
+                </TextField>
                 <TextField
                     id="studentEmail"
                     name="studentEmail"
+                    select // Change input to select
                     label="Student Email"
                     variant="outlined"
                     value={formData.studentEmail}
                     onChange={handleChange}
-                />
+                >
+                    {students[formData.name] && students[formData.name].map((email) => (
+                        <MenuItem key={email} value={email}>
+                            {email}
+                        </MenuItem>
+                    ))}
+                </TextField>
                 <TextField
                     id="courseName"
                     name="courseName"
@@ -96,12 +117,20 @@ function AddClasses() {
                     value={formData.assignmentType}
                     onChange={handleChange}
                 >
-                    {['Lab Assignment', 'Network Assignment', 'Quiz', 'Zoom Meeting'].map((option) => (
+                    {['Lab Assignment', 'General Assignment', 'Quiz', 'Zoom Meeting'].map((option) => (
                         <MenuItem key={option} value={option}>
                             {option}
                         </MenuItem>
                     ))}
                 </TextField>
+                <TextField
+                    id="assignmentName"
+                    name="assignmentName"
+                    label="Assignment Name"
+                    variant="outlined"
+                    value={formData.assignmentName}
+                    onChange={handleChange}
+                />
                 <TextField
                     id="dateTimeDue"
                     name="dateTimeDue"

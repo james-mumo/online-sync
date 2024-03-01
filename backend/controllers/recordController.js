@@ -17,6 +17,7 @@ export const createRecord = async (req, res) => {
         studentEmail: req.body.studentEmail,
         courseName: req.body.courseName,
         assignmentType: req.body.assignmentType,
+        assignmentName: req.body.assignmentName,
         dateTimeDue: req.body.dateTimeDue,
         // dateTimeDue: dateTimeDueHours, // Set the dateTimeDue to hours
         status: req.body.status

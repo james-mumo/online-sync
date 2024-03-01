@@ -91,10 +91,12 @@ export default function FullFeaturedCrudGrid({ records }) {
         {
             field: 'assignmentType', headerName: 'Assignment Type', width: 180, editable: true,
             type: 'singleSelect',
-            valueOptions: ['Lab', 'Assignment'],
+            valueOptions: ['Lab Assignment', 'Quiz Assignment', 'Network Assignment', 'Zoom Meeting'],
         },
+        { field: 'assignmentName', headerName: 'Assignment Name', width: 220, editable: true },
         { field: 'dateTimeDue', headerName: 'Date/Time Due', width: 220, editable: true },
         { field: 'hoursDue', headerName: 'Hours Remaining', width: 220, editable: true },
+        { field: 'score', headerName: 'Score', width: 120, editable: true },
         {
             field: 'status',
             headerName: 'Status',
@@ -102,7 +104,6 @@ export default function FullFeaturedCrudGrid({ records }) {
             editable: true,
             type: 'singleSelect',
             valueOptions: ['Pending', 'Completed'],
-
         },
         {
             field: 'actions',
@@ -143,6 +144,7 @@ export default function FullFeaturedCrudGrid({ records }) {
             },
         },
     ];
+
 
     return (
         <div className="bg-teal-100 p-4 rounded-lg w-fit">
