@@ -8,6 +8,7 @@ import LoggedInLayout from "./LoggedInLayout";
 import Dashboard from "./components/authenticated/dashboard/Dashboard";
 import Courses from "./components/authenticated/courses/Courses";
 import Classes from "./components/authenticated/classes/Classes";
+import AddClasses from "./components/authenticated/classes/AddClasses";
 import Sessions from "./components/authenticated/sessions/Sessions";
 import AuthModal from "./components/Auth/AuthModal";
 
@@ -30,6 +31,7 @@ function App() {
             <LoggedInLayout>
               <Switch>
                 <Route exact path="/dashboard" component={Dashboard} />
+                <Route exact path="/addclasses" component={AddClasses} />
                 <Route exact path="/classes" component={Classes} />
                 <Route exact path="/courses" component={Courses} />
                 <Route exact path="/sessions" component={Sessions} />

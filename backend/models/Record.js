@@ -4,6 +4,7 @@ import mongoose from 'mongoose';
 const recordSchema = new mongoose.Schema({
     name: String,
     studentEmail: String,
+    courseName: String,
     assignmentType: String,
     dateTimeDue: Date,
     status: String

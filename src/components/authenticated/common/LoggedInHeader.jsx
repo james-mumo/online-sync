@@ -50,7 +50,7 @@ const LoggedInHeader = () => {
                             </Link>
                         </li>
                         <li>
-                            <a href="#" className="hover:text-teal-300 cursor-pointer bg-teal-950 hover:bg-teal-900 transition duration-300 p-3 rounded-md flex items-center">
+                            <a href="/addclasses" className="hover:text-teal-300 cursor-pointer bg-teal-950 hover:bg-teal-900 transition duration-300 p-3 rounded-md flex items-center">
                                 <PaymentsIcon className="mr-2" />
                                 Add Classes
                             </a>

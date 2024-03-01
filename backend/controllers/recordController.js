@@ -4,7 +4,7 @@ import Record from '../models/Record.js';
 export const getAllRecords = async (req, res) => {
     try {
         const records = await Record.find();
-        res.json({ records: records, new: "james" });
+        res.json(records)
     } catch (err) {
         res.status(500).json({ message: err.message });
     }
@@ -15,6 +15,7 @@ export const createRecord = async (req, res) => {
     const record = new Record({
         name: req.body.name,
         studentEmail: req.body.studentEmail,
+        courseName: req.body.courseName,
         assignmentType: req.body.assignmentType,
         dateTimeDue: req.body.dateTimeDue,
         status: req.body.status

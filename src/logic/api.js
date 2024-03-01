@@ -5,13 +5,11 @@ const api = axios.create({
     // baseURL: 'http://localhost:4000/api', 
 });
 
-// Define functions for making different types of requests
 const signup = (formData) => api.post('/student/register', formData);
-
-// Define login function
 const login = (formData) => api.post('/student/login', formData);
-
 const addRecord = (itemData) => api.post("/records", itemData);
+const getRecords = () => api.get("/records");
 
-// Export the functions
-export { signup, login, addRecord };
+
+
+export { signup, login, addRecord, getRecords };
