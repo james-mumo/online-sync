@@ -1,5 +1,5 @@
 import express from 'express';
-import { getAllRecords, createRecord, deleteAllRecords } from '../controllers/recordController.js';
+import { getAllRecords, createRecord, deleteAllRecords, deleteRecordById, updateRecordById } from '../controllers/recordController.js';
 
 const router = express.Router();
 
@@ -11,6 +11,12 @@ router.post('/', createRecord);
 
 // Route to delete all records
 router.delete('/', deleteAllRecords);
+
+// Route to delete a record by its ID
+router.delete('/:id', deleteRecordById);
+
+// Route to update a record by its ID
+router.put('/:id', updateRecordById);
 
 // Other routes for updating and deleting records would be similar
 

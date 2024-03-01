@@ -6,12 +6,30 @@ function Classes() {
     const [records, setRecords] = useState([]);
     const [loading, setLoading] = useState(true);
 
+    // Function to calculate due time and update records
+    const calculateDueTime = (records) => {
+        const currentTime = new Date();
+        return records.map((record) => {
+            const futureTime = new Date(record.dateTimeDue);
+            const timeDifferenceMs = futureTime.getTime() - currentTime.getTime();
+            const hoursDue = Math.floor(timeDifferenceMs / (1000 * 60 * 60)); // Calculate hours due
+            const formattedFutureTime = futureTime.toLocaleString(); // Format future time
+            return {
+                ...record,
+                hoursDue,
+                dateTimeDue: formattedFutureTime,
+            };
+        });
+    };
+
     useEffect(() => {
         const fetchRecords = async () => {
             try {
                 const response = await getRecords();
+                // Calculate hoursDue and update dateTimeDue for each record
+                const updatedRecords = calculateDueTime(response.data);
                 // Add unique id to each record
-                const recordsWithId = response.data.map((record) => ({
+                const recordsWithId = updatedRecords.map((record) => ({
                     ...record,
                     id: record._id, // Use MongoDB _id as id
                 }));

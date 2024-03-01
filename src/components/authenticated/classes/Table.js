@@ -11,6 +11,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/DeleteOutlined';
 import SaveIcon from '@mui/icons-material/Save';
 import CancelIcon from '@mui/icons-material/Close';
+import { updateRecord, deleteRecord } from '../../../logic/api';
 
 export default function FullFeaturedCrudGrid({ records }) {
     const [rows, setRows] = React.useState(records);
@@ -26,12 +27,31 @@ export default function FullFeaturedCrudGrid({ records }) {
         setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.Edit } });
     };
 
-    const handleSaveClick = (id) => () => {
-        setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });
+    const handleSaveClick = (id) => async () => {
+        try {
+            // Fetch the row to be updated from the state
+            const updatedRow = rows.find(row => row.id === id);
+
+            // Send a PUT request to update the record in the backend
+            await updateRecord(id, updatedRow);
+
+            // If the request is successful, update the row mode in the state
+            setRowModesModel({ ...rowModesModel, [id]: { mode: GridRowModes.View } });
+        } catch (error) {
+            console.error('Error updating record:', error);
+        }
     };
 
-    const handleDeleteClick = (id) => () => {
-        setRows(rows.filter((row) => row.id !== id));
+    const handleDeleteClick = (id) => async () => {
+        try {
+            // Send a DELETE request to delete the record in the backend
+            await deleteRecord(id);
+
+            // If the request is successful, update the rows in the state
+            setRows(rows.filter((row) => row.id !== id));
+        } catch (error) {
+            console.error('Error deleting record:', error);
+        }
     };
 
     const handleCancelClick = (id) => () => {
@@ -46,10 +66,19 @@ export default function FullFeaturedCrudGrid({ records }) {
         }
     };
 
-    const processRowUpdate = (newRow) => {
-        const updatedRow = { ...newRow, isNew: false };
-        setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
-        return updatedRow;
+    const processRowUpdate = async (newRow) => {
+        try {
+            // Send a PUT request to update the record in the backend
+            await updateRecord(newRow.id, newRow);
+
+            // If the request is successful, update the row in the state
+            const updatedRow = { ...newRow, isNew: false };
+            setRows(rows.map((row) => (row.id === newRow.id ? updatedRow : row)));
+            return updatedRow;
+            // You may want to handle errors here if the request fails
+        } catch (error) {
+            console.error('Error updating record:', error);
+        }
     };
 
     const handleRowModesModelChange = (newRowModesModel) => {
@@ -65,6 +94,7 @@ export default function FullFeaturedCrudGrid({ records }) {
             valueOptions: ['Lab', 'Assignment'],
         },
         { field: 'dateTimeDue', headerName: 'Date/Time Due', width: 220, editable: true },
+        { field: 'hoursDue', headerName: 'Hours Remaining', width: 220, editable: true },
         {
             field: 'status',
             headerName: 'Status',

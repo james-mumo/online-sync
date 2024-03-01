@@ -11,12 +11,6 @@ export const getAllRecords = async (req, res) => {
 };
 // Controller function to create a new record
 export const createRecord = async (req, res) => {
-    // Parse the dateTimeDue value into hours
-    // const dateTimeDueHours = new Date(req.body.dateTimeDue).getTime(); // Get the timestamp in milliseconds
-    // const currentTime = Date.now(); // Get the current timestamp in milliseconds
-    // const timeDifferenceInHours = (dateTimeDueHours - currentTime) / (1000 * 60 * 60); // Convert milliseconds to hours
-
-    // console.log(timeDifferenceInHours); // Log the time difference in hours
 
     const record = new Record({
         name: req.body.name,
@@ -46,3 +40,33 @@ export const deleteAllRecords = async (req, res) => {
         res.status(500).json({ message: err.message });
     }
 };
+
+// Controller function to delete a record by ID
+export const deleteRecordById = async (req, res) => {
+    const id = req.params.id;
+    try {
+        const deletedRecord = await Record.findByIdAndDelete(id);
+        if (!deletedRecord) {
+            return res.status(404).json({ message: "Record not found" });
+        }
+        res.json({ message: "Record deleted successfully", deletedRecord });
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+};
+
+// Controller function to update a record by ID
+export const updateRecordById = async (req, res) => {
+    const id = req.params.id;
+    const updates = req.body;
+    try {
+        const updatedRecord = await Record.findByIdAndUpdate(id, updates, { new: true });
+        if (!updatedRecord) {
+            return res.status(404).json({ message: "Record not found" });
+        }
+        res.json({ message: "Record updated successfully", updatedRecord });
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+};
+

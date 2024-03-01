@@ -1,5 +1,15 @@
 import React, { useEffect, useState } from 'react';
 
+// Shared component for grid cells
+function GridCell({ title, content, bgClass }) {
+    return (
+        <div className={`bg-${bgClass} p-4 rounded-lg shadow-lg`}>
+            <h2 className="text-lg font-semibold mb-2">{title}</h2>
+            <p className="text-gray-800">{content}</p>
+        </div>
+    );
+}
+
 function Dashboard() {
     const [userData, setUserData] = useState(null);
 
@@ -33,48 +43,30 @@ function Dashboard() {
                 </div>
 
                 {/* Grid cell 2 */}
-                <div className="bg-teal-300 p-4 rounded-lg shadow-lg">
-                    <h2 className="text-lg font-semibold mb-2">Item 2</h2>
-                    <p className="text-gray-800">Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                </div>
+                <GridCell title="Item 2" content="Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." bgClass="teal-300" />
 
                 {/* Grid cell 3 */}
-                <div className="bg-teal-400 p-4 rounded-lg shadow-lg">
-                    <h2 className="text-lg font-semibold mb-2">Item 3</h2>
-                    <p className="text-gray-800">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                </div>
+                <GridCell title="Item 3" content="Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." bgClass="teal-400" />
 
                 {/* Grid cell 4 */}
-                <div className="bg-teal-500 p-4 rounded-lg shadow-lg">
-                    <h2 className="text-lg font-semibold mb-2">Item 4</h2>
-                    <p className="text-gray-800">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.</p>
-                </div>
+                <GridCell title="Item 4" content="Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur." bgClass="teal-500" />
 
                 {/* Grid cell 5 */}
-                <div className="bg-teal-600 p-4 rounded-lg shadow-lg">
-                    <h2 className="text-lg font-semibold mb-2">Item 5</h2>
-                    <p className="text-gray-800">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-                </div>
+                <GridCell title="Item 5" content="Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." bgClass="teal-600" />
 
                 {/* Grid cell 6 */}
-                <div className="bg-teal-700 p-4 rounded-lg shadow-lg">
-                    <h2 className="text-lg font-semibold mb-2">Item 6</h2>
-                    <p className="text-gray-800">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                </div>
+                <GridCell title="Item 6" content="Lorem ipsum dolor sit amet, consectetur adipiscing elit." bgClass="teal-700" />
 
                 {/* Grid cell 7 */}
-                <div className="bg-teal-800 p-4 rounded-lg shadow-lg">
-                    <h2 className="text-lg font-semibold mb-2">Item 7</h2>
-                    <p className="text-gray-200">Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-                </div>
+                <GridCell title="Item 7" content="Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua." bgClass="teal-800" />
 
                 {/* Grid cell 8 */}
-                <div className="bg-teal-900 p-4 rounded-lg shadow-lg col-span-2">
-                    <h2 className="text-lg font-semibold mb-2">Item 8</h2>
-                    <p className="text-gray-200">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                </div>
+                <GridCell title="Item 8" content="Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." bgClass="teal-900" />
+
+                {/* Grid cell 8 */}
+                <GridCell title="Item 8" content="Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." bgClass="teal-900" />
             </div>
-        </div >
+        </div>
     );
 }
 
