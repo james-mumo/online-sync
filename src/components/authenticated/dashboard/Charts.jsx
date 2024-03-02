@@ -78,8 +78,8 @@ export const BarChart = ({ records }) => {
     };
 
     return (
-        <div id="bar-chart">
-            <ReactApexChart options={chartOptions} series={[{ data: chartData.map(item => item.count) }]} type="bar" height={350} />
+        <div id="bar-chart" className='border px-5 '>
+            <ReactApexChart options={chartOptions} series={[{ data: chartData.map(item => item.count) }]} type="bar" height={350} width={600} />
         </div>
     );
 };
@@ -138,6 +138,7 @@ export const PieChartType = ({ records }) => {
         });
 
         setTypeData(typeCounts);
+        console.log()
     }, [records]);
 
     const pieOptions = {
@@ -150,8 +151,17 @@ export const PieChartType = ({ records }) => {
     const pieSeries = typeData.map(item => item.count);
 
     return (
-        <div id="pie-chart-type">
+        <div id="pie-chart-type" className='border rounded-md flex flex-col' style={{ width: 450, height: 400 }}>
             <ReactApexChart options={{ ...pieOptions }} series={pieSeries} type="pie" />
+            <span>Summary</span>
+            <div className="flex flex-row gap-2">
+                <div className="flex flex-col flex-1">
+                    <span><span>{typeData[0]?.type}</span><span>{typeData[0]?.count}</span></span>
+                    <span><span>{typeData[1]?.type}</span><span>{typeData[1]?.count}</span></span></div>
+                <div className="flex flex-col flex-1">
+                    <span><span>{typeData[2]?.type}</span><span>{typeData[2]?.count}</span></span>
+                    <span><span>{typeData[3]?.type}</span><span>{typeData[3]?.count}</span></span></div>
+            </div>
         </div>
     );
 };

@@ -167,3 +167,10 @@ p {
     height: 80vh;
   }
 }
+
+/* styles.css */
+.devIsMad {
+  background-image: url('./images/joker.png');
+  background-size: cover;
+  background-position: center;
+}

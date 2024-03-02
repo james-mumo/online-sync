@@ -88,38 +88,38 @@ export default function FullFeaturedCrudGrid({ records }) {
     const getRowClassName = (params) => {
         const hoursRemaining = params.row.hoursDue;
         if (hoursRemaining < 0) {
-            return 'bg-gray-300';
+            return 'bg-gray-700  text-white';
         } else if (hoursRemaining < 12) {
-            return 'bg-red-400';
+            return 'bg-[#ff3333]  text-white';
         } else if (hoursRemaining < 24) {
-            return 'bg-red-800';
+            return 'bg-[#cc0000]  text-white';
         } else if (hoursRemaining < 48) {
-            return 'bg-yellow-500';
+            return 'bg-[#468646] text-white';
         } else {
-            return 'bg-green-400 hover:bg-green-500';
+            return 'bg-[#2d862d]  text-white hover:bg-green-500';
         }
     };
 
     const columns = [
-        { field: 'name', headerName: 'Name', width: 180, editable: true, sortable: true },
-        { field: 'studentEmail', headerName: 'Student Email', width: 220, editable: true, sortable: true },
+        { field: 'name', headerName: 'Name', width: 100, editable: true, sortable: true, headerClassName: 'text-white font-semibold' },
+        { field: 'studentEmail', headerName: 'Student Email', width: 170, editable: true, sortable: true, headerClassName: 'text-white' },
         {
-            field: 'assignmentType', headerName: 'Assignment Type', width: 180, editable: true,
+            field: 'assignmentType', headerName: 'Assignment Type', width: 150, editable: true,
             type: 'singleSelect',
             valueOptions: ['Lab Assignment', 'Quiz Assignment', 'Network Assignment', 'Zoom Meeting'],
-            sortable: true
+            sortable: true, headerClassName: 'text-white'
         },
-        { field: 'assignmentName', headerName: 'Assignment Name', width: 220, editable: true, sortable: true },
-        { field: 'dateTimeDue', headerName: 'Date/Time Due', width: 220, editable: true, sortable: true },
+        { field: 'assignmentName', headerName: 'Assignment Name', width: 180, editable: true, sortable: true, headerClassName: 'text-white' },
+        { field: 'dateTimeDue', headerName: 'Date/Time Due', width: 220, editable: true, sortable: true, headerClassName: 'text-white' },
         {
-            field: 'hoursDue', headerName: 'Hours Remaining', width: 220, editable: true,
+            field: 'hoursDue', headerName: 'Hours Remaining', width: 140, editable: true,
             renderCell: (params) => {
                 const value = params.value;
                 return value < 0 ? 'Overdue' : value;
             },
-            sortable: true
+            sortable: true, headerClassName: 'text-white'
         },
-        { field: 'score', headerName: 'Score', width: 120, editable: true, sortable: true },
+        { field: 'score', headerName: 'Score', width: 90, editable: true, sortable: true, headerClassName: 'text-white' },
         {
             field: 'status',
             headerName: 'Status',
@@ -127,12 +127,13 @@ export default function FullFeaturedCrudGrid({ records }) {
             editable: true,
             type: 'singleSelect',
             valueOptions: ['Pending', 'Completed'],
-            sortable: true
+            sortable: true, headerClassName: 'text-white'
         },
         {
             field: 'actions',
             type: 'actions',
             headerName: 'Actions',
+            headerClassName: 'text-white',
             width: 100,
             cellClassName: 'actions',
             getActions: ({ id }) => {
@@ -143,11 +144,13 @@ export default function FullFeaturedCrudGrid({ records }) {
                         <GridActionsCellItem
                             icon={<SaveIcon />}
                             label="Save"
+                            // sx={{ color: 'white', fontWeight: 'bold' }}
                             onClick={handleSaveClick(id)}
                         />,
                         <GridActionsCellItem
                             icon={<CancelIcon />}
                             label="Cancel"
+                            // sx={{ color: 'white', fontWeight: 'bold' }}
                             onClick={handleCancelClick(id)}
                         />,
                     ];
@@ -157,11 +160,13 @@ export default function FullFeaturedCrudGrid({ records }) {
                     <GridActionsCellItem
                         icon={<EditIcon />}
                         label="Edit"
+                        sx={{ color: 'white', fontWeight: 'bold' }}
                         onClick={handleEditClick(id)}
                     />,
                     <GridActionsCellItem
                         icon={<DeleteIcon />}
                         label="Delete"
+                        sx={{ color: 'white', fontWeight: 'bold' }}
                         onClick={handleDeleteClick(id)}
                     />,
                 ];
@@ -170,7 +175,7 @@ export default function FullFeaturedCrudGrid({ records }) {
     ];
 
     return (
-        <div className="bg-gray-100 p-4 rounded-lg w-fit">
+        <div className="bg-teal-700 p-4 rounded-lg w-fit">
             <DataGrid
                 rows={rows}
                 columns={columns}
@@ -182,6 +187,12 @@ export default function FullFeaturedCrudGrid({ records }) {
                 getRowClassName={getRowClassName}
                 sortingOrder={['desc', 'asc']}
                 className="border border-red-800"
+                sx={{
+
+                    "& .MuiDataGrid-row:hover": {
+                        backgroundColor: "#24a89d"
+                    }
+                }}
             />
         </div>
     );

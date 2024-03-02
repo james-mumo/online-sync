@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { getRecords } from '../../../logic/api';
 import FullFeaturedCrudGrid from './Table';
+import MyHeader from './MyHeader';
 
-function Classes() {
+function Classes({ openAddModal }) {
     const [records, setRecords] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [isAddModalOpen, setIsAddModalOpen] = useState(false); // State for modal visibility
 
     // Function to calculate due time and update records
     const calculateDueTime = (records) => {
@@ -49,16 +51,20 @@ function Classes() {
     }, []);
 
     return (
-        <div>
-            {loading ? (
-                <p>Loading...</p>
-            ) : records.length === 0 ? (
-                <p>No records found.</p>
-            ) : (
-                <div>
-                    <FullFeaturedCrudGrid records={records} />
-                </div>
-            )}
+        <div className="flex flex-col w-full">
+            <MyHeader openAddModal={openAddModal} />
+            <div className="px-4 py-4 border">
+
+                {loading ? (
+                    <p>Loading...</p>
+                ) : records.length === 0 ? (
+                    <p>No records found.</p>
+                ) : (
+                    <div className='border border-emerald-300'>
+                        <FullFeaturedCrudGrid records={records} />
+                    </div>
+                )}
+            </div>
         </div>
     );
 }

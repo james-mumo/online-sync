@@ -95,21 +95,21 @@ function Dashboard() {
             <MyHeader />
             <div className="px-4 py-4 border">
                 <div className="flex flex-col">
-                    {/* Grid cell 1 */}
-
-                    <div className="flex">
 
 
+                    <div className="flex gap-5">
+                        <PieChartType records={records} />
                         <BarChart records={records} />
 
-                        <DonutChartStatus records={records} />
-                        <DonutChartPeriod records={records} />
-
-                        <PieChartType records={records} />
-                        <RadialChartPending records={records} />
-
-                        <RadialChartCompleted records={records} />
                     </div>
+
+
+                    <DonutChartStatus records={records} />
+                    <DonutChartPeriod records={records} />
+
+                    <RadialChartPending records={records} />
+
+                    <RadialChartCompleted records={records} />
 
                     <RadialChartAllTypes records={records} />
                     <PolarAreaChart records={records} />

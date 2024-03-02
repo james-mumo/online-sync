@@ -44,7 +44,7 @@ const LoggedInHeader = () => {
                         </Link>
                     </li>
                     <li className='flex flex-col'>
-                        <a href="/addclasses" className="hover:text-teal-300 cursor-pointer hover:bg-teal-900 transition duration-300 p-3 rounded-md flex items-center flex-col gap-1">
+                        <a href="#" className="hover:text-teal-300 cursor-pointer hover:bg-teal-900 transition duration-300 p-3 rounded-md flex items-center flex-col gap-1">
                             <PaymentsIcon className="mr-2 text-teal-300" />
                             Add Classes
                         </a>
