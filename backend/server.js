@@ -1,8 +1,6 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
-import userRoutes from './routes/userRoutes.js';
-import tutorRoutes from './routes/tutorRoutes.js';
 import studentRoutes from "./routes/studentRoutes.js"
 import recordRouter from './routes/recordRoutes.js';
 

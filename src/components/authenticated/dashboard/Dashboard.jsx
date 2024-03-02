@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getRecords } from '../../../logic/api';
 import MyHeader from './MyHeader';
-import { BarChart, DonutChartStatus, PieChartType, PolarAreaChart, RadialChartAllTypes, RadialChartCompleted, RadialChartPending } from './Charts';
+import { BarChart, DonutChartPeriod, DonutChartStatus, GroupedColumnChart, PieChartType, PolarAreaChart, RadialChartAllTypes, RadialChartCompleted, RadialChartPending } from './Charts';
 
 // Shared component for grid cells
 function GridCell({ title, content, bgClass }) {
@@ -103,6 +103,7 @@ function Dashboard() {
                         <BarChart records={records} />
 
                         <DonutChartStatus records={records} />
+                        <DonutChartPeriod records={records} />
 
                         <PieChartType records={records} />
                         <RadialChartPending records={records} />
@@ -112,6 +113,7 @@ function Dashboard() {
 
                     <RadialChartAllTypes records={records} />
                     <PolarAreaChart records={records} />
+                    <GroupedColumnChart records={records} />
 
 
 

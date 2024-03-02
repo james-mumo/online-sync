@@ -89,8 +89,10 @@ export default function FullFeaturedCrudGrid({ records }) {
         const hoursRemaining = params.row.hoursDue;
         if (hoursRemaining < 0) {
             return 'bg-gray-300';
-        } else if (hoursRemaining < 24) {
+        } else if (hoursRemaining < 12) {
             return 'bg-red-400';
+        } else if (hoursRemaining < 24) {
+            return 'bg-red-800';
         } else if (hoursRemaining < 48) {
             return 'bg-yellow-500';
         } else {

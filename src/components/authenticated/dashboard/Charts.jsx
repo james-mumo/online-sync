@@ -493,4 +493,165 @@ export const PolarAreaChart = ({ records }) => {
 };
 
 
+export const DonutChartPeriod = ({ records }) => {
+    const [periodCategories, setPeriodCategories] = useState([0, 0, 0, 0, 0]); // Initialize categories with zeros
 
+    useEffect(() => {
+        const now = new Date(); // Current date and time
+        const categories = [0, 0, 0, 0, 0]; // Initialize categories with zeros
+
+        records.forEach(record => {
+            const dueDate = new Date(record.dateTimeDue);
+            const hoursDifference = Math.floor((dueDate - now) / (1000 * 60 * 60)); // Difference in hours
+
+            if (hoursDifference <= -1) {
+                categories[0]++; // Increment count for category "Overdue"
+            } else if (hoursDifference <= 12 && hoursDifference >= 0) {
+                categories[1]++; // Increment count for category "Below 12 hours"
+            } else if (hoursDifference <= 24 && hoursDifference > 12) {
+                categories[2]++; // Increment count for category "Between 12 and 24 hours"
+            } else if (hoursDifference <= 48 && hoursDifference > 24) {
+                categories[3]++; // Increment count for category "Between 24 and 48 hours"
+            } else if (hoursDifference > 48) {
+                categories[4]++; // Increment count for category "Beyond 48 hours"
+            }
+        });
+
+        setPeriodCategories(categories);
+    }, [records]);
+
+    const donutOptions = {
+        chart: {
+            type: 'donut',
+        },
+        responsive: [{
+            breakpoint: 480,
+            options: {
+                chart: {
+                    width: 200
+                },
+                legend: {
+                    position: 'bottom'
+                }
+            }
+        }]
+    };
+
+    const donutSeries = periodCategories;
+    const donutLabels = ['Overdue', 'Below 12 hrs', '12-24 hrs', '24-48 hrs', 'Beyond 48 hrs'];
+
+    return (
+        <div id="donut-chart-period">
+            <ReactApexChart options={{ ...donutOptions, labels: donutLabels }} series={donutSeries} type="donut" />
+        </div>
+    );
+};
+
+
+
+export const GroupedColumnChart = ({ records }) => {
+    const [groupedData, setGroupedData] = useState([]);
+    const [xAxisCategories, setXAxisCategories] = useState([]);
+
+    useEffect(() => {
+        const uniqueUsers = Array.from(new Set(records.map(record => record.name))); // Get unique user names
+        const categories = ['Overdue', 'Below 12 hrs', '12-24 hrs', '24-48 hrs', 'Beyond 48 hrs'];
+
+        // Initialize an array to hold data for each category for each unique user
+        const series = categories.map(() => ({
+            name: '',
+            data: new Array(uniqueUsers.length).fill(0)
+        }));
+
+        uniqueUsers.forEach((user, index) => {
+            records.forEach(record => {
+                if (record.name === user) {
+                    const dueDate = new Date(record.dateTimeDue);
+                    const now = new Date();
+                    const hoursDifference = Math.floor((dueDate - now) / (1000 * 60 * 60));
+                    let categoryIndex;
+                    if (hoursDifference <= -1) {
+                        categoryIndex = 0; // Overdue
+                    } else if (hoursDifference <= 12 && hoursDifference >= 0) {
+                        categoryIndex = 1; // Below 12 hours
+                    } else if (hoursDifference <= 24 && hoursDifference > 12) {
+                        categoryIndex = 2; // Between 12 and 24 hours
+                    } else if (hoursDifference <= 48 && hoursDifference > 24) {
+                        categoryIndex = 3; // Between 24 and 48 hours
+                    } else if (hoursDifference > 48) {
+                        categoryIndex = 4; // Beyond 48 hours
+                    }
+                    series[categoryIndex].data[index]++;
+                    series[categoryIndex].name = categories[categoryIndex];
+                }
+            });
+        });
+
+        setXAxisCategories(uniqueUsers);
+        setGroupedData(series);
+    }, [records]);
+
+    const options = {
+        chart: {
+            type: 'bar',
+            height: 350,
+            stacked: true,
+            toolbar: {
+                show: true
+            },
+            zoom: {
+                enabled: true
+            }
+        },
+        responsive: [{
+            breakpoint: 480,
+            options: {
+                legend: {
+                    position: 'bottom',
+                    offsetX: -10,
+                    offsetY: 0
+                }
+            }
+        }],
+        plotOptions: {
+            bar: {
+                horizontal: false,
+                borderRadius: 10,
+                dataLabels: {
+                    total: {
+                        enabled: true,
+                        style: {
+                            fontSize: '13px',
+                            fontWeight: 900
+                        }
+                    }
+                }
+            },
+        },
+        xaxis: {
+            categories: xAxisCategories, // Set x-axis categories to unique user names
+        },
+        legend: {
+            position: 'right',
+            offsetY: 40,
+            labels: {
+                colors: ['#FF0000', '#FF6666', '#1ab7ea', '#0084ff', '#39539E'], // Set colors for legend items
+                useSeriesColors: false // Disable using series colors for legend
+            }
+        },
+        fill: {
+            opacity: 1
+        },
+        yaxis: {
+            labels: {
+                colors: ['#FF0000', '#FF6666', '#1ab7ea', '#0084ff', '#39539E'], // Set colors for y-axis labels
+            }
+        }
+    };
+
+    return (
+        <div id="grouped-column-chart">
+            <ReactApexChart options={options} series={groupedData} type="bar" height={350} />
+        </div>
+    );
+};
