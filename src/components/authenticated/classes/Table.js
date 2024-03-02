@@ -85,24 +85,39 @@ export default function FullFeaturedCrudGrid({ records }) {
         setRowModesModel(newRowModesModel);
     };
 
+    const getRowClassName = (params) => {
+        const hoursRemaining = params.row.hoursDue;
+        if (hoursRemaining < 0) {
+            return 'bg-gray-300';
+        } else if (hoursRemaining < 24) {
+            return 'bg-red-400';
+        } else if (hoursRemaining < 48) {
+            return 'bg-yellow-500';
+        } else {
+            return 'bg-green-400 hover:bg-green-500';
+        }
+    };
+
     const columns = [
-        { field: 'name', headerName: 'Name', width: 180, editable: true },
-        { field: 'studentEmail', headerName: 'Student Email', width: 220, editable: true },
+        { field: 'name', headerName: 'Name', width: 180, editable: true, sortable: true },
+        { field: 'studentEmail', headerName: 'Student Email', width: 220, editable: true, sortable: true },
         {
             field: 'assignmentType', headerName: 'Assignment Type', width: 180, editable: true,
             type: 'singleSelect',
             valueOptions: ['Lab Assignment', 'Quiz Assignment', 'Network Assignment', 'Zoom Meeting'],
+            sortable: true
         },
-        { field: 'assignmentName', headerName: 'Assignment Name', width: 220, editable: true },
-        { field: 'dateTimeDue', headerName: 'Date/Time Due', width: 220, editable: true },
+        { field: 'assignmentName', headerName: 'Assignment Name', width: 220, editable: true, sortable: true },
+        { field: 'dateTimeDue', headerName: 'Date/Time Due', width: 220, editable: true, sortable: true },
         {
             field: 'hoursDue', headerName: 'Hours Remaining', width: 220, editable: true,
             renderCell: (params) => {
                 const value = params.value;
                 return value < 0 ? 'Overdue' : value;
-            }
+            },
+            sortable: true
         },
-        { field: 'score', headerName: 'Score', width: 120, editable: true },
+        { field: 'score', headerName: 'Score', width: 120, editable: true, sortable: true },
         {
             field: 'status',
             headerName: 'Status',
@@ -110,6 +125,7 @@ export default function FullFeaturedCrudGrid({ records }) {
             editable: true,
             type: 'singleSelect',
             valueOptions: ['Pending', 'Completed'],
+            sortable: true
         },
         {
             field: 'actions',
@@ -151,9 +167,8 @@ export default function FullFeaturedCrudGrid({ records }) {
         },
     ];
 
-
     return (
-        <div className="bg-teal-100 p-4 rounded-lg w-fit">
+        <div className="bg-gray-100 p-4 rounded-lg w-fit">
             <DataGrid
                 rows={rows}
                 columns={columns}
@@ -162,9 +177,10 @@ export default function FullFeaturedCrudGrid({ records }) {
                 onRowModesModelChange={handleRowModesModelChange}
                 onRowEditStop={handleRowEditStop}
                 processRowUpdate={processRowUpdate}
+                getRowClassName={getRowClassName}
+                sortingOrder={['desc', 'asc']}
                 className="border border-red-800"
             />
         </div>
-
     );
 }

@@ -4,6 +4,7 @@ import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
 import PaymentsIcon from '@mui/icons-material/Payments';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
+import BadgeIcon from '@mui/icons-material/Badge';
 import CollectionsBookmarkIcon from '@mui/icons-material/CollectionsBookmark';
 import { useHistory, Link } from "react-router-dom";
 
@@ -23,51 +24,44 @@ const LoggedInHeader = () => {
     };
 
     return (
-        <div className="bg-teal-800 text-white py-4 flex justify-between items-center px-2">
+        <div className="bg-teal-700 text-white py-4 flex flex-col justify-between items-center px-0">
             <div className='w-fit px-2'>
-                <Link to="/dashboard" className="hover:text-white font-semibold text-3xl sm:hover:text-[#1eb2a6]">Online Sync</Link>
+                <Link to="/dashboard" className="hover:text-white font-thin text-3xl sm:hover:text-[#1eb2a6]">E~Sync</Link>
             </div>
-            <nav className='flex-1 flex items-end flex-row justify-end'>
-                <ul className="flex space-x-4">
+            <hr />
+            <nav className='flex-1 flex items-center flex-col justify-start  py-4'>
+                <ul className="flex flex-col gap-4 ">
+                    <li className='flex flex-col'>
+                        <a href="/dashboard" className="hover:text-teal-300 cursor-pointer hover:bg-teal-900 transition duration-300 p-3 rounded-md flex items-center flex-col gap-1">
+                            <SchoolIcon className="mr-2 text-teal-300" />
+                            Dashboard
+                        </a>
+                    </li>
+                    <li className='flex flex-col'>
+                        <Link to="/classes" className="hover:text-teal-300 cursor-pointer hover:bg-teal-900 transition duration-300 p-3 rounded-md flex items-center flex-col gap-1">
+                            <CollectionsBookmarkIcon className="mr-2 text-teal-300" />
+                            Classes
+                        </Link>
+                    </li>
+                    <li className='flex flex-col'>
+                        <a href="/addclasses" className="hover:text-teal-300 cursor-pointer hover:bg-teal-900 transition duration-300 p-3 rounded-md flex items-center flex-col gap-1">
+                            <PaymentsIcon className="mr-2 text-teal-300" />
+                            Add Classes
+                        </a>
+                    </li>
+                    <li className='flex flex-col'>
+                        <a href="#" className="hover:text-teal-300 cursor-pointer hover:bg-teal-900 transition duration-300 p-3 rounded-md flex items-center flex-col gap-1">
+                            <BadgeIcon className="mr-2 text-teal-300" />
+                            Profile
+                        </a>
+                    </li>
+                    <li className='flex flex-col'>
+                        <a onClick={handleLogout} className="hover:text-teal-300 cursor-point hover:bg-teal-900 transition duration-300 p-3 rounded-md flex items-center flex-col">
+                            <ExitToAppIcon className="mr-2 text-teal-300" />
+                            Log Out
+                        </a>
+                    </li>
 
-                    <div className='flex justify-center gap-2 items-center'>
-                        <li>
-                            <a href="/dashboard" className="hover:text-teal-300 cursor-pointer bg-teal-950 hover:bg-teal-900 transition duration-300 p-3 rounded-md flex items-center">
-                                <SchoolIcon className="mr-2" />
-                                Dashboard
-                            </a>
-                        </li>
-                        <li>
-                            <Link to="/classes" className="hover:text-teal-300 cursor-pointer bg-teal-950 hover:bg-teal-900 transition duration-300 p-3 rounded-md flex items-center">
-                                <CollectionsBookmarkIcon className="mr-2" />
-                                Classes
-                            </Link>
-                        </li>
-                        {/* <li>
-                            <Link to="/courses" className="hover:text-teal-300 cursor-pointer bg-teal-950 hover:bg-teal-900 transition duration-300 p-3 rounded-md flex items-center">
-                                <LibraryBooksIcon className="mr-2" />
-                                Courses
-                            </Link>
-                        </li> */}
-                        <li>
-                            <a href="/addclasses" className="hover:text-teal-300 cursor-pointer bg-teal-950 hover:bg-teal-900 transition duration-300 p-3 rounded-md flex items-center">
-                                <PaymentsIcon className="mr-2" />
-                                Add Classes
-                            </a>
-                        </li>
-                        {/* <li>
-                            <a href="#" className="hover:text-teal-300 cursor-pointer bg-teal-950 hover:bg-teal-900 transition duration-300 p-3 rounded-md flex items-center">
-                                <GroupAddIcon className="mr-2" />
-                                Add Classes
-                            </a>
-                        </li> */}
-                        <li>
-                            <a onClick={handleLogout} className="hover:text-teal-300 cursor-point bg-teal-950 hover:bg-teal-900 transition duration-300 p-3 rounded-md flex items-center">
-                                <ExitToAppIcon className="mr-2" />
-                                Log Out
-                            </a>
-                        </li>
-                    </div>
 
                 </ul>
             </nav>
