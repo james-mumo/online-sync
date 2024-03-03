@@ -185,8 +185,6 @@ export const RadialChartAllTypes = ({ records }) => {
 
 // second one
 
-
-
 export const GroupedColumnChart = ({ records }) => {
     const [groupedData, setGroupedData] = useState([]);
     const [xAxisCategories, setXAxisCategories] = useState([]);
@@ -263,7 +261,9 @@ export const GroupedColumnChart = ({ records }) => {
                             fontWeight: 900
                         }
                     }
-                }
+                },
+                // colors: ['#808080', '#FF0000', '#FFFF00', '#1E90FF', '#0000FF'], // Set colors for bars
+
             },
         },
         xaxis: {
@@ -273,7 +273,7 @@ export const GroupedColumnChart = ({ records }) => {
             position: 'right',
             offsetY: 40,
             labels: {
-                colors: ['#FF0000', '#FF6666', '#1ab7ea', '#0084ff', '#39539E'], // Set colors for legend items
+                colors: ['#808080', '#FF0000', '#FFFF00', '#1E90FF', '#0000FF'], // Set colors for legend items
                 useSeriesColors: false // Disable using series colors for legend
             }
         },
@@ -282,7 +282,7 @@ export const GroupedColumnChart = ({ records }) => {
         },
         yaxis: {
             labels: {
-                colors: ['#FF0000', '#FF6666', '#1ab7ea', '#0084ff', '#39539E'], // Set colors for y-axis labels
+                colors: ['#808080', '#FF0000', '#FFFF00', '#1E90FF', '#0000FF'], // Set colors for legend items
             },
             forceNiceScale: true // Ensure y-axis labels are rounded to the nearest whole number
         }
@@ -295,6 +295,7 @@ export const GroupedColumnChart = ({ records }) => {
         </div>
     );
 };
+
 
 
 
@@ -386,14 +387,26 @@ export const DonutChartStatus = ({ records }) => {
                     position: 'bottom'
                 }
             }
-        }]
+        }],
+        plotOptions: {
+            pie: {
+                donut: {
+                    labels: {
+                        show: true, // Show values on the legend
+                        formatter: function (val, opts) {
+                            return `${opts.w.globals.labels[opts.seriesIndex]}: ${opts.series[opts.seriesIndex]}`;
+                        }
+                    }
+                }
+            }
+        }
     };
 
     const donutSeries = statusData.map(item => item.count);
     const donutLabels = statusData.map(item => item.status);
 
     return (
-        <div id="donut-chart-status" className='border bg-emerald-100 rounded-md flex flex-col pr-5' style={{ width: 450, height: 350 }}>
+        <div id="donut-chart-status" className='border bg-emerald-100 rounded-md flex flex-col pr-5' style={{ width: 450, height: 300 }}>
             <ReactApexChart options={{ ...donutOptions, labels: donutLabels }} series={donutSeries} type="donut" />
         </div>
     );
@@ -403,17 +416,22 @@ export const DonutChartStatus = ({ records }) => {
 export const RadialChartPending = ({ records }) => {
     const [pendingPercentage, setPendingPercentage] = useState(0);
 
+    const [myPendingCount, setMyPendingCount] = useState(0);
+    const [totalMyCount, setMyTotalCount] = useState(0);
+
     useEffect(() => {
         const pendingCount = records.filter(record => record.status === 'Pending').length;
         const totalCount = records.length;
-        const percentage = (pendingCount / totalCount) * 100;
+        const percentage = Math.round((pendingCount / totalCount) * 100);
         setPendingPercentage(percentage);
+        setMyPendingCount(pendingCount)
+        setMyTotalCount(totalCount)
     }, [records]);
 
     const radialOptions = {
         chart: {
             type: 'radialBar',
-            offsetY: -20,
+            offsetY: -30,
             sparkline: {
                 enabled: true
             }
@@ -462,15 +480,25 @@ export const RadialChartPending = ({ records }) => {
                 stops: [0, 50, 53, 91]
             },
         },
+
+        tooltip: {
+            y: {
+                formatter: function (val) {
+                    return `${myPendingCount} out of ${totalMyCount}`;
+                }
+            }
+        },
         labels: ['Pending Assignments'],
     };
 
-    const radialSeries = [pendingPercentage];
+    const formattedPercentage = `${pendingPercentage}`;
+    const radialSeries = [formattedPercentage];
 
     return (
-        <div id="radial-chart-pending">
-            <ReactApexChart options={radialOptions} series={radialSeries} type="radialBar" />
-        </div>
+        // <div id="radial-chart-pending" className='flex flex-col'>
+        <ReactApexChart options={radialOptions} series={radialSeries} type="radialBar" />
+
+        // </div>
     );
 };
 
@@ -482,14 +510,14 @@ export const RadialChartCompleted = ({ records }) => {
     useEffect(() => {
         const completedCount = records.filter(record => record.status === 'Completed').length;
         const totalCount = records.length;
-        const percentage = (completedCount / totalCount) * 100;
+        const percentage = Math.round((completedCount / totalCount) * 100);
         setCompletedPercentage(percentage);
     }, [records]);
 
     const radialOptions = {
         chart: {
             type: 'radialBar',
-            offsetY: -20,
+            offsetY: -30,
             sparkline: {
                 enabled: true
             }

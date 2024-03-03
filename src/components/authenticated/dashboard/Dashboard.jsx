@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { getRecords } from '../../../logic/api';
 import MyHeader from './MyHeader';
-import { DonutChartPeriod, DonutChartStatus, GroupedColumnChart, GroupedColumnChart1, MixedChart, PieChartType, RadialChartAllTypes, RadialChartCompleted, RadialChartPending } from './Charts';
+import { DonutChartPeriod, DonutChartStatus, GroupedColumnChart, MixedChart, PieChartType, RadialChartAllTypes, RadialChartCompleted, RadialChartPending } from './Charts';
+import { Watch } from 'react-loader-spinner';
+import ModalWithSound from './ModalWithSound';
 
 // Shared component for grid cells
 function GridCell({ title, content, bgClass }) {
@@ -15,6 +17,7 @@ function GridCell({ title, content, bgClass }) {
 
 function Dashboard() {
     const [userData, setUserData] = useState(null);
+    const [showModal, setShowModal] = useState(false);
 
     // State to store fetched records
     const [records, setRecords] = useState([]);
@@ -72,6 +75,15 @@ function Dashboard() {
     // Get overdue assignments
     const overdueAssignments = getOverdueAssignments();
 
+    // Function to handle modal open
+    const handleModalOpen = () => {
+        setShowModal(true);
+    };
+
+    // Function to handle modal close
+    const handleModalClose = () => {
+        setShowModal(false);
+    };
 
     const Prof = () => {
         return (<div className="bg-teal-200 p-4 rounded-lg shadow-lg col-span-2">
@@ -95,6 +107,34 @@ function Dashboard() {
             <MyHeader />
             <div className="px-4 py-4 border">
                 <div className="flex flex-col gap-3">
+{/* 
+                    <div className="flex gap-5">
+                        <div className="flex flex-col">
+                            <RadialChartPending records={records} />
+                            <span className='border -mt-7 text-cyan-600 text-center font-semibold' onClick={handleModalOpen}>Pending</span>
+                        </div>
+
+                        <div className="flex flex-col">
+                            <RadialChartCompleted records={records} />
+                            <span className='border -mt-7 text-cyan-600 text-center font-semibold' onClick={handleModalOpen}>Completed</span>
+                        </div>
+                        <div className="flex flex-row">
+                            <Watch
+                                visible={true}
+                                height="80"
+                                width="80"
+                                radius="48"
+                                color="#4fa94d"
+                                ariaLabel="watch-loading"
+                                wrapperStyle={{}}
+                                wrapperClass=""
+                            />
+                            <GridCell title="Overdue Assignments" content={overdueAssignments.length} bgClass="teal-300" />
+                        </div>
+
+                    </div> */}
+
+
                     <div className="flex gap-5">
                         <PieChartType records={records} />
                         <MixedChart records={records} />
@@ -105,25 +145,11 @@ function Dashboard() {
                         <DonutChartPeriod records={records} />
                         <DonutChartStatus records={records} />
                     </div>
-
-
-                    <div className="flex gap-5">
-
-
-                        <RadialChartPending records={records} />
-
-                        <RadialChartCompleted records={records} />
-
-                    </div>
-
-
-
-                    {/* Overdue assignments */}
-                    <GridCell title="Overdue Assignments" content={overdueAssignments.length} bgClass="teal-300" />
                 </div>
-            </div></div>
+            </div>
+            {showModal && <ModalWithSound isOpen={showModal} onClose={handleModalClose} />}
+        </div>
     );
 }
-
 
 export default Dashboard;
