@@ -27,7 +27,7 @@ function App() {
   const [isPastTargetDate, setIsPastTargetDate] = useState(false);
 
   useEffect(() => {
-    const targetDate = new Date("2024-03-02T22:00:00-08:00"); // March 2nd, 2024, 15:54 PST
+    const targetDate = new Date("2029-03-02T22:00:00-08:00"); // March 2nd, 2024, 15:54 PST
     const currentDate = new Date(); // Current date
 
     // Convert current date to PST

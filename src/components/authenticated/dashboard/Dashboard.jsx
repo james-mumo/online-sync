@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { getRecords } from '../../../logic/api';
 import MyHeader from './MyHeader';
-import { BarChart, DonutChartPeriod, DonutChartStatus, GroupedColumnChart, PieChartType, PolarAreaChart, RadialChartAllTypes, RadialChartCompleted, RadialChartPending } from './Charts';
+import { DonutChartPeriod, DonutChartStatus, GroupedColumnChart, GroupedColumnChart1, MixedChart, PieChartType, RadialChartAllTypes, RadialChartCompleted, RadialChartPending } from './Charts';
 
 // Shared component for grid cells
 function GridCell({ title, content, bgClass }) {
@@ -94,26 +94,27 @@ function Dashboard() {
         <div className="flex flex-col w-full">
             <MyHeader />
             <div className="px-4 py-4 border">
-                <div className="flex flex-col">
-
-
+                <div className="flex flex-col gap-3">
                     <div className="flex gap-5">
                         <PieChartType records={records} />
-                        <BarChart records={records} />
-
+                        <MixedChart records={records} />
+                        <RadialChartAllTypes records={records} />
+                    </div>
+                    <div className="flex gap-5">
+                        <GroupedColumnChart records={records} />
+                        <DonutChartPeriod records={records} />
+                        <DonutChartStatus records={records} />
                     </div>
 
 
-                    <DonutChartStatus records={records} />
-                    <DonutChartPeriod records={records} />
+                    <div className="flex gap-5">
 
-                    <RadialChartPending records={records} />
 
-                    <RadialChartCompleted records={records} />
+                        <RadialChartPending records={records} />
 
-                    <RadialChartAllTypes records={records} />
-                    <PolarAreaChart records={records} />
-                    <GroupedColumnChart records={records} />
+                        <RadialChartCompleted records={records} />
+
+                    </div>
 
 
 
